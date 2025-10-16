@@ -6,17 +6,24 @@ import { Button, Tabs, TabsContent, TabsList, TabsTrigger, useToast } from '@/co
 import { Plus, Link, Settings } from 'lucide-react';
 
 import { Layout } from '@/components/Layout';
-import { PlatformCard } from '@/components/PlatformCard';
-import { ConnectionWizard } from '@/components/ConnectionWizard';
+import { PlatformGrid } from '@/components/PlatformGrid';
+import { ConnectedPlatforms } from '@/components/ConnectedPlatforms';
 import { DataMapping } from '@/components/DataMapping';
 import { SyncLogs } from '@/components/SyncLogs';
+import { EnhancedConnectionWizard } from '@/components/EnhancedConnectionWizard';
+// @ts-ignore;
+import { useTranslation } from '@/lib/i18n';
 export default function Integration(props) {
   const [isDark, setIsDark] = useState(true);
   const [platforms, setPlatforms] = useState([]);
   const [mappings, setMappings] = useState({});
   const [logs, setLogs] = useState([]);
   const [showWizard, setShowWizard] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [loading, setLoading] = useState(true);
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -42,17 +49,33 @@ export default function Integration(props) {
       if (result.records) {
         setPlatforms(result.records.map(platform => ({
           id: platform._id,
-          name: platform.name,
-          type: platform.platform,
+          platform: platform.platform,
+          name: platform.display_name || platform.name,
           status: platform.status || 'disconnected',
           lastSync: platform.last_sync_at ? new Date(platform.last_sync_at).toLocaleString() : 'Never',
-          account: platform.account || 'Unknown',
-          syncEnabled: platform.sync_enabled || false
+          account: platform.account_name || platform.account_id || 'Unknown',
+          syncEnabled: platform.sync_enabled || false,
+          credentials: platform.credentials || {},
+          clientId: platform.client_id,
+          clientSecret: platform.client_secret,
+          accessToken: platform.access_token,
+          refreshToken: platform.refresh_token,
+          scope: platform.scope || [],
+          expiresAt: platform.expires_at,
+          connectedAt: platform.connected_at,
+          accountEmail: platform.account_email,
+          accountAvatar: platform.account_avatar,
+          apiVersion: platform.api_version,
+          syncFrequency: platform.sync_frequency,
+          errorMessage: platform.error_message,
+          metadata: platform.metadata || {},
+          config: platform.config || {},
+          tags: platform.tags || []
         })));
       }
     } catch (error) {
       toast({
-        title: "Error loading platforms",
+        title: t('errorLoadingData'),
         description: error.message,
         variant: "destructive"
       });
@@ -85,7 +108,7 @@ export default function Integration(props) {
       }
     } catch (error) {
       toast({
-        title: "Error loading logs",
+        title: t('errorLoadingData'),
         description: error.message,
         variant: "destructive"
       });
@@ -121,6 +144,122 @@ export default function Integration(props) {
       setLoading(false);
     });
   }, []);
+  const handleConnect = async platformData => {
+    try {
+      const platformConfig = {
+        weibo: {
+          clientId: 'weibo_app_key',
+          clientSecret: 'weibo_app_secret'
+        },
+        bilibili: {
+          clientId: 'bilibili_app_key',
+          clientSecret: 'bilibili_app_secret'
+        },
+        douyin: {
+          clientId: 'douyin_client_key',
+          clientSecret: 'douyin_client_secret'
+        },
+        kuaishou: {
+          clientId: 'kuaishou_app_id',
+          clientSecret: 'kuaishou_app_secret'
+        },
+        xiaohongshu: {
+          clientId: 'xhs_app_key',
+          clientSecret: 'xhs_app_secret'
+        },
+        facebook: {
+          clientId: 'facebook_app_id',
+          clientSecret: 'facebook_app_secret'
+        },
+        instagram: {
+          clientId: 'instagram_app_id',
+          clientSecret: 'instagram_app_secret'
+        },
+        twitter: {
+          clientId: 'twitter_api_key',
+          clientSecret: 'twitter_api_secret'
+        },
+        linkedin: {
+          clientId: 'linkedin_client_id',
+          clientSecret: 'linkedin_client_secret'
+        },
+        youtube: {
+          clientId: 'youtube_client_id',
+          clientSecret: 'youtube_client_secret'
+        },
+        whatsapp: {
+          clientId: 'whatsapp_phone_id',
+          clientSecret: 'whatsapp_access_token'
+        },
+        tiktok: {
+          clientId: 'tiktok_client_key',
+          clientSecret: 'tiktok_client_secret'
+        }
+      };
+      const config = platformConfig[platformData.platform] || {};
+      await props.$w.cloud.callDataSource({
+        dataSourceName: 'integration',
+        methodName: 'wedaCreateV2',
+        params: {
+          data: {
+            platform: platformData.platform,
+            name: platformData.name,
+            display_name: platformData.display_name || platformData.name,
+            client_id: config.clientId,
+            client_secret: config.clientSecret,
+            access_token: platformData.credentials?.accessToken,
+            refresh_token: platformData.credentials?.refreshToken,
+            scope: platformData.credentials?.scope || [],
+            status: 'connected',
+            account_name: platformData.account || 'Connected Account',
+            account_id: platformData.account_id || 'unknown',
+            connected_at: new Date().toISOString(),
+            last_sync_at: new Date().toISOString(),
+            sync_enabled: true,
+            sync_frequency: 'hourly',
+            api_version: 'v1.0',
+            metadata: {
+              field_mappings: {
+                phone: 'phone',
+                name: 'name',
+                email: 'email',
+                avatar: 'avatar',
+                bio: 'bio',
+                followers: 'followers_count',
+                following: 'following_count',
+                posts: 'posts_count'
+              },
+              platform_config: {
+                rate_limits: {
+                  requests_per_hour: 1000,
+                  requests_per_day: 10000
+                }
+              }
+            },
+            config: {
+              auto_sync: true,
+              sync_fields: ['profile', 'posts', 'followers'],
+              webhook_enabled: false
+            },
+            tags: [platformData.platform, 'social_media', 'active']
+          }
+        }
+      });
+      toast({
+        title: t('platformConnected'),
+        description: `${platformData.display_name || platformData.name} ${t('hasBeenConnected')}`
+      });
+      setShowWizard(false);
+      setSelectedPlatform(null);
+      await Promise.all([fetchPlatforms(), fetchMappings()]);
+    } catch (error) {
+      toast({
+        title: t('errorConnectingPlatform'),
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
   const handleReconnect = async platformId => {
     try {
       await props.$w.cloud.callDataSource({
@@ -142,13 +281,13 @@ export default function Integration(props) {
         }
       });
       toast({
-        title: "Platform reconnected",
+        title: t('platformConnected'),
         description: "Platform has been successfully reconnected."
       });
       await fetchPlatforms();
     } catch (error) {
       toast({
-        title: "Error reconnecting platform",
+        title: t('errorConnectingPlatform'),
         description: error.message,
         variant: "destructive"
       });
@@ -162,6 +301,7 @@ export default function Integration(props) {
         params: {
           data: {
             status: 'disconnected',
+            last_sync_at: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           },
           filter: {
@@ -174,60 +314,13 @@ export default function Integration(props) {
         }
       });
       toast({
-        title: "Platform disconnected",
+        title: t('platformDisconnected'),
         description: "Platform has been disconnected."
       });
       await fetchPlatforms();
     } catch (error) {
       toast({
-        title: "Error disconnecting platform",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
-  };
-  const handleConnect = async platform => {
-    try {
-      await props.$w.cloud.callDataSource({
-        dataSourceName: 'integration',
-        methodName: 'wedaCreateV2',
-        params: {
-          data: {
-            platform: platform.platform,
-            name: platform.name,
-            credentials: {
-              apiKey: platform.apiKey,
-              token: platform.token,
-              webhook: platform.webhook
-            },
-            status: 'connected',
-            account: platform.account || 'Unknown',
-            last_sync_at: new Date().toISOString(),
-            sync_enabled: true,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            metadata: {
-              field_mappings: {
-                [platform.platform]: {
-                  phone: 'phone',
-                  name: 'name',
-                  email: 'email',
-                  avatar: 'avatar'
-                }
-              }
-            }
-          }
-        }
-      });
-      toast({
-        title: "Platform connected",
-        description: `${platform.name} has been connected successfully.`
-      });
-      setShowWizard(false);
-      await Promise.all([fetchPlatforms(), fetchMappings()]);
-    } catch (error) {
-      toast({
-        title: "Error connecting platform",
+        title: t('errorConnectingPlatform'),
         description: error.message,
         variant: "destructive"
       });
@@ -235,40 +328,37 @@ export default function Integration(props) {
   };
   const handleMappingChange = async (platform, platformField, systemField) => {
     try {
-      const platformRecord = platforms.find(p => p.type === platform);
-      if (platformRecord) {
-        const newMappings = {
-          ...(mappings[platform] || {}),
-          [platformField]: systemField === '__none__' ? null : systemField
-        };
-        await props.$w.cloud.callDataSource({
-          dataSourceName: 'integration',
-          methodName: 'wedaUpdateV2',
-          params: {
-            data: {
-              metadata: {
-                field_mappings: newMappings
-              },
-              updatedAt: new Date().toISOString()
+      const newMappings = {
+        ...(mappings[platform] || {}),
+        [platformField]: systemField === '__none__' ? null : systemField
+      };
+      await props.$w.cloud.callDataSource({
+        dataSourceName: 'integration',
+        methodName: 'wedaUpdateV2',
+        params: {
+          data: {
+            metadata: {
+              field_mappings: newMappings
             },
-            filter: {
-              where: {
-                platform: {
-                  $eq: platform
-                }
+            updatedAt: new Date().toISOString()
+          },
+          filter: {
+            where: {
+              platform: {
+                $eq: platform
               }
             }
           }
-        });
-        setMappings(prev => ({
-          ...prev,
-          [platform]: newMappings
-        }));
-        toast({
-          title: "Mapping updated",
-          description: "Field mapping has been updated."
-        });
-      }
+        }
+      });
+      setMappings(prev => ({
+        ...prev,
+        [platform]: newMappings
+      }));
+      toast({
+        title: "Mapping updated",
+        description: "Field mapping has been updated."
+      });
     } catch (error) {
       toast({
         title: "Error updating mapping",
@@ -277,11 +367,15 @@ export default function Integration(props) {
       });
     }
   };
+  const handlePlatformConnect = platform => {
+    setSelectedPlatform(platform);
+    setShowWizard(true);
+  };
   if (loading) {
     return <Layout activePage="integration" onNavigate={handleNavigate} isDark={isDark} onToggleTheme={toggleTheme}>
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
-          <div className="text-muted-foreground">Loading integration data...</div>
+          <div className="text-muted-foreground">{t('loading')}</div>
         </div>
       </div>
     </Layout>;
@@ -292,34 +386,34 @@ export default function Integration(props) {
           <div>
             <h2 className="text-3xl font-bold text-foreground flex items-center gap-2">
               <Link className="w-8 h-8" />
-              Integration
+              {t('integrationManagement')}
             </h2>
-            <p className="text-muted-foreground">Manage platform connections and data synchronization</p>
+            <p className="text-muted-foreground">{t('managePlatformConnections')}</p>
           </div>
           <Button onClick={() => setShowWizard(true)}>
             <Plus className="w-4 h-4 mr-2" />
-            Add Platform
+            {t('addPlatform')}
           </Button>
         </div>
 
         <Tabs defaultValue="platforms" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="platforms">Connected Platforms</TabsTrigger>
-            <TabsTrigger value="mapping">Data Mapping</TabsTrigger>
-            <TabsTrigger value="logs">Sync Logs</TabsTrigger>
+            <TabsTrigger value="platforms">{t('availablePlatforms')}</TabsTrigger>
+            <TabsTrigger value="connected">{t('connectedPlatforms')}</TabsTrigger>
+            <TabsTrigger value="mapping">{t('dataMapping')}</TabsTrigger>
+            <TabsTrigger value="logs">{t('syncLogs')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="platforms">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {platforms.map(platform => <PlatformCard key={platform.id} platform={platform} onReconnect={handleReconnect} onDisconnect={handleDisconnect} />)}
-              {platforms.length === 0 && <div className="col-span-full text-center py-8 text-muted-foreground">
-                  No platforms connected. Click "Add Platform" to get started.
-                </div>}
-            </div>
+            <PlatformGrid connectedPlatforms={platforms} onConnect={handlePlatformConnect} />
+          </TabsContent>
+
+          <TabsContent value="connected">
+            <ConnectedPlatforms platforms={platforms} onReconnect={handleReconnect} onDisconnect={handleDisconnect} />
           </TabsContent>
 
           <TabsContent value="mapping">
-            <DataMapping mappings={mappings} onMappingChange={handleMappingChange} />
+            <DataMapping platforms={platforms} mappings={mappings} onMappingChange={handleMappingChange} />
           </TabsContent>
 
           <TabsContent value="logs">
@@ -327,17 +421,10 @@ export default function Integration(props) {
           </TabsContent>
         </Tabs>
 
-        {showWizard && <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-background rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-auto">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold">Add New Platform</h3>
-                <Button variant="ghost" size="sm" onClick={() => setShowWizard(false)}>
-                  Close
-                </Button>
-              </div>
-              <ConnectionWizard onConnect={handleConnect} />
-            </div>
-          </div>}
+        <EnhancedConnectionWizard platform={selectedPlatform} isOpen={showWizard} onClose={() => {
+        setShowWizard(false);
+        setSelectedPlatform(null);
+      }} onConnect={handleConnect} />
       </div>
     </Layout>;
 }

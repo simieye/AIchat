@@ -99,10 +99,18 @@ export const translations = {
     platformName: 'Platform Name',
     connectionStatus: 'Connection Status',
     lastSync: 'Last Sync',
+    connectedAt: 'Connected At',
+    expiresAt: 'Expires At',
     reconnect: 'Reconnect',
     disconnect: 'Disconnect',
     dataMapping: 'Data Mapping',
     syncLogs: 'Sync Logs',
+    availablePlatforms: 'Available Platforms',
+    notConnected: 'Not Connected',
+    managePlatformConnections: 'Manage your social media platform connections',
+    connectPlatformsToStart: 'Connect platforms to start syncing data',
+    noConnectedPlatforms: 'No connected platforms',
+    hasBeenConnected: 'has been connected',
     
     // Settings
     settings: 'Settings',
@@ -111,6 +119,7 @@ export const translations = {
     tagTemplates: 'Tag Templates',
     language: 'Language',
     theme: 'Theme',
+    preferences: 'Preferences',
     
     // 状态
     connected: 'Connected',
@@ -199,10 +208,18 @@ export const translations = {
     platformName: '平台名称',
     connectionStatus: '连接状态',
     lastSync: '最后同步',
+    connectedAt: '连接时间',
+    expiresAt: '过期时间',
     reconnect: '重新连接',
     disconnect: '断开连接',
     dataMapping: '数据映射',
     syncLogs: '同步日志',
+    availablePlatforms: '可用平台',
+    notConnected: '未连接',
+    managePlatformConnections: '管理您的社交媒体平台连接',
+    connectPlatformsToStart: '连接平台开始同步数据',
+    noConnectedPlatforms: '暂无已连接平台',
+    hasBeenConnected: '已成功连接',
     
     // Settings
     settings: '设置',
@@ -211,6 +228,7 @@ export const translations = {
     tagTemplates: '标签模板',
     language: '语言',
     theme: '主题',
+    preferences: '偏好设置',
     
     // 状态
     connected: '已连接',
