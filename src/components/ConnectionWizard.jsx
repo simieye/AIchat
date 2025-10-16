@@ -1,167 +1,205 @@
 // @ts-ignore;
 import React, { useState } from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Badge } from '@/components/ui';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Button, Input, Label, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Plus, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2, ExternalLink } from 'lucide-react';
 
+// @ts-ignore;
+import { useTranslation } from '@/lib/i18n';
+const platformConfigs = {
+  weibo: {
+    fields: ['app_key', 'app_secret', 'access_token', 'uid'],
+    authUrl: 'https://api.weibo.com/oauth2/authorize',
+    docsUrl: 'https://open.weibo.com/wiki/Oauth2'
+  },
+  bilibili: {
+    fields: ['access_key', 'secret_key', 'sessdata', 'bili_jct'],
+    authUrl: 'https://passport.bilibili.com/login/oauth2/authorize',
+    docsUrl: 'https://openhome.bilibili.com/doc'
+  },
+  douyin: {
+    fields: ['client_key', 'client_secret', 'access_token', 'open_id'],
+    authUrl: 'https://open.douyin.com/platform/oauth/connect',
+    docsUrl: 'https://open.douyin.com/platform/doc'
+  },
+  kuaishou: {
+    fields: ['app_id', 'app_secret', 'access_token', 'open_id'],
+    authUrl: 'https://open.kuaishou.com/oauth2/authorize',
+    docsUrl: 'https://open.kuaishou.com/platform/doc'
+  },
+  xiaohongshu: {
+    fields: ['client_id', 'client_secret', 'access_token', 'user_id'],
+    authUrl: 'https://ark.xiaohongshu.com/app/authorize',
+    docsUrl: 'https://school.xiaohongshu.com/rule'
+  },
+  zhihu: {
+    fields: ['client_id', 'client_secret', 'access_token', 'uid'],
+    authUrl: 'https://www.zhihu.com/oauth2/authorize',
+    docsUrl: 'https://open.zhihu.com/wiki'
+  },
+  twitter: {
+    fields: ['api_key', 'api_secret', 'access_token', 'access_token_secret'],
+    authUrl: 'https://api.twitter.com/oauth/authorize',
+    docsUrl: 'https://developer.twitter.com/en/docs/twitter-api'
+  },
+  facebook: {
+    fields: ['app_id', 'app_secret', 'access_token', 'page_id'],
+    authUrl: 'https://www.facebook.com/dialog/oauth',
+    docsUrl: 'https://developers.facebook.com/docs'
+  },
+  instagram: {
+    fields: ['app_id', 'app_secret', 'access_token', 'user_id'],
+    authUrl: 'https://api.instagram.com/oauth/authorize',
+    docsUrl: 'https://developers.facebook.com/docs/instagram'
+  },
+  linkedin: {
+    fields: ['client_id', 'client_secret', 'access_token', 'person_id'],
+    authUrl: 'https://www.linkedin.com/oauth/v2/authorization',
+    docsUrl: 'https://docs.microsoft.com/en-us/linkedin'
+  },
+  youtube: {
+    fields: ['client_id', 'client_secret', 'access_token', 'refresh_token'],
+    authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+    docsUrl: 'https://developers.google.com/youtube/v3'
+  },
+  tiktok: {
+    fields: ['client_key', 'client_secret', 'access_token', 'open_id'],
+    authUrl: 'https://www.tiktok.com/v2/auth/authorize',
+    docsUrl: 'https://developers.tiktok.com/doc'
+  }
+};
 export function ConnectionWizard({
-  onConnect
+  platform,
+  onComplete,
+  onCancel
 }) {
   const [step, setStep] = useState(1);
-  const [connection, setConnection] = useState({
-    platform: '',
-    name: '',
-    apiKey: '',
-    token: '',
-    webhook: ''
-  });
-  const [testing, setTesting] = useState(false);
-  const [testResult, setTestResult] = useState(null);
-  const platforms = [{
-    value: 'whatsapp_business',
-    label: 'WhatsApp Business',
-    icon: '💬',
-    fields: ['apiKey', 'token', 'webhook']
-  }, {
-    value: 'facebook_messenger',
-    label: 'Facebook Messenger',
-    icon: '👤',
-    fields: ['apiKey', 'token']
-  }, {
-    value: 'instagram_messenger',
-    label: 'Instagram Messenger',
-    icon: '📸',
-    fields: ['apiKey', 'token']
-  }, {
-    value: 'google_analytics',
-    label: 'Google Analytics',
-    icon: '📊',
-    fields: ['apiKey']
-  }];
-  const selectedPlatform = platforms.find(p => p.value === connection.platform);
-  const testConnection = async () => {
-    setTesting(true);
-    setTestResult(null);
-    // 模拟测试连接
-    setTimeout(() => {
-      setTesting(false);
-      setTestResult(Math.random() > 0.2 ? 'success' : 'error');
-    }, 2000);
+  const [credentials, setCredentials] = useState({});
+  const [loading, setLoading] = useState(false);
+  const {
+    t
+  } = useTranslation();
+  const {
+    toast
+  } = useToast();
+  const platformConfig = platformConfigs[platform.name?.toLowerCase()] || {
+    fields: ['api_key', 'api_secret'],
+    authUrl: '#',
+    docsUrl: '#'
   };
-  const handleConnect = () => {
-    if (connection.platform && connection.name && connection.apiKey) {
-      onConnect({
-        ...connection,
-        id: Date.now().toString(),
-        status: 'connected',
-        lastSync: new Date().toLocaleString()
+  const handleInputChange = (field, value) => {
+    setCredentials(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+  const handleTestConnection = async () => {
+    setLoading(true);
+    try {
+      // 模拟API测试
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      toast({
+        title: `${platform.displayName || platform.name} ${t('connectionTestSuccess')}`,
+        variant: "success"
       });
-      setConnection({
-        platform: '',
-        name: '',
-        apiKey: '',
-        token: '',
-        webhook: ''
+      setStep(3);
+    } catch (error) {
+      toast({
+        title: `${t('connectionTestFailed')}`,
+        description: error.message,
+        variant: "destructive"
       });
-      setStep(1);
+    } finally {
+      setLoading(false);
     }
   };
-  return <Card>
-      <CardHeader>
-        <CardTitle>Add New Platform</CardTitle>
-        <div className="flex items-center gap-2 mt-2">
-          <Badge variant={step >= 1 ? "default" : "outline"}>1. Select</Badge>
-          <Badge variant={step >= 2 ? "default" : "outline"}>2. Configure</Badge>
-          <Badge variant={step >= 3 ? "default" : "outline"}>3. Test</Badge>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {step === 1 && <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Choose Platform</label>
-              <Select value={connection.platform} onValueChange={value => setConnection({
-            ...connection,
-            platform: value
-          })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a platform" />
-                </SelectTrigger>
-                <SelectContent>
-                  {platforms.map(platform => <SelectItem key={platform.value} value={platform.value}>
-                      <span className="flex items-center gap-2">
-                        <span>{platform.icon}</span>
-                        <span>{platform.label}</span>
-                      </span>
-                    </SelectItem>)}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button onClick={() => setStep(2)} disabled={!connection.platform}>
-              Next: Configure
-            </Button>
-          </div>}
-        {step === 2 && selectedPlatform && <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Connection Name</label>
-              <Input placeholder="e.g., Main WhatsApp Account" value={connection.name} onChange={e => setConnection({
-            ...connection,
-            name: e.target.value
-          })} />
-            </div>
-            <div>
-              <label className="text-sm font-medium">API Key</label>
-              <Input placeholder="Enter your API key" value={connection.apiKey} onChange={e => setConnection({
-            ...connection,
-            apiKey: e.target.value
-          })} />
-            </div>
-            {selectedPlatform.fields.includes('token') && <div>
-                <label className="text-sm font-medium">Access Token</label>
-                <Input placeholder="Enter access token" value={connection.token} onChange={e => setConnection({
-            ...connection,
-            token: e.target.value
-          })} />
-              </div>}
-            {selectedPlatform.fields.includes('webhook') && <div>
-                <label className="text-sm font-medium">Webhook URL</label>
-                <Input placeholder="https://your-domain.com/webhook" value={connection.webhook} onChange={e => setConnection({
-            ...connection,
-            webhook: e.target.value
-          })} />
-              </div>}
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep(1)}>
-                Back
-              </Button>
-              <Button onClick={() => setStep(3)}>
-                Next: Test Connection
-              </Button>
-            </div>
-          </div>}
-        {step === 3 && <div className="space-y-4">
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-2">Test Connection</h4>
-              <div className="flex items-center gap-2">
-                <Button onClick={testConnection} disabled={testing}>
-                  {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Test Connection'}
-                </Button>
-                {testResult === 'success' && <CheckCircle className="w-5 h-5 text-green-500" />}
-                {testResult === 'error' && <XCircle className="w-5 h-5 text-red-500" />}
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      await onComplete(platform, credentials);
+    } catch (error) {
+      toast({
+        title: t('error'),
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  return <Dialog open={true} onOpenChange={onCancel}>
+      <DialogContent className="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>Connect {platform.displayName || platform.name}</DialogTitle>
+          <DialogDescription>
+            Follow the steps to connect your {platform.displayName || platform.name} account
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-6">
+          {/* Step 1: OAuth or API Keys */}
+          {step === 1 && <div className="space-y-4">
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4" style={{
+              backgroundColor: platform.color
+            }}>
+                  {platform.icon}
+                </div>
+                <h3 className="font-medium mb-2">Step 1: Authentication</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Choose your preferred authentication method
+                </p>
               </div>
-              {testResult && <p className={`text-sm mt-2 ${testResult === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-                  {testResult === 'success' ? 'Connection successful!' : 'Connection failed. Please check your credentials.'}
-                </p>}
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep(2)}>
-                Back
+
+              <div className="space-y-3">
+                <Button className="w-full" onClick={() => window.open(platformConfig.authUrl, '_blank')}>
+                  OAuth Login
+                </Button>
+                <Button variant="outline" className="w-full" onClick={() => setStep(2)}>
+                  Manual API Keys
+                </Button>
+                <Button variant="ghost" className="w-full" onClick={() => window.open(platformConfig.docsUrl, '_blank')}>
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View Documentation
+                </Button>
+              </div>
+            </div>}
+
+          {/* Step 2: API Configuration */}
+          {step === 2 && <div className="space-y-4">
+              <h3 className="font-medium">Step 2: API Configuration</h3>
+              <p className="text-sm text-muted-foreground">
+                Enter your {platform.displayName || platform.name} API credentials
+              </p>
+
+              {platformConfig.fields.map(field => <div key={field} className="space-y-2">
+                  <Label htmlFor={field}>{field.replace('_', ' ').toUpperCase()}</Label>
+                  <Input id={field} type={field.includes('secret') || field.includes('token') || field.includes('key') ? 'password' : 'text'} value={credentials[field] || ''} onChange={e => handleInputChange(field, e.target.value)} placeholder={`Enter your ${field}`} />
+                </div>)}
+
+              <div className="flex gap-2">
+                <Button onClick={handleTestConnection} disabled={loading}>
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Test Connection'}
+                </Button>
+                <Button variant="outline" onClick={() => setStep(1)}>
+                  Back
+                </Button>
+              </div>
+            </div>}
+
+          {/* Step 3: Success */}
+          {step === 3 && <div className="text-center space-y-4">
+              <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+              <h3 className="font-medium">Connection Successful!</h3>
+              <p className="text-sm text-muted-foreground">
+                Your {platform.displayName || platform.name} account has been successfully connected
+              </p>
+              <Button onClick={handleSubmit} className="w-full">
+                Complete Setup
               </Button>
-              <Button onClick={handleConnect} disabled={testResult !== 'success'}>
-                Connect Platform
-              </Button>
-            </div>
-          </div>}
-      </CardContent>
-    </Card>;
+            </div>}
+        </div>
+      </DialogContent>
+    </Dialog>;
 }

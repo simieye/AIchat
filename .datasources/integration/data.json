@@ -1,85 +1,183 @@
 
 [
   {
-    "_id": "integration_1",
-    "platform": "whatsapp",
-    "name": "WhatsApp Business",
-    "credentials": {
-      "api_key": "wa_api_key_encrypted",
-      "access_token": "wa_token_encrypted",
-      "phone_number_id": "1234567890",
-      "business_account_id": "business_123"
-    },
+    "name": "weibo",
+    "display_name": "微博",
+    "platform_type": "social",
+    "region": "cn",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "user_info"],
     "status": "connected",
-    "account": "+1-234-567-8900",
-    "last_sync_at": 1705276800000,
+    "last_sync_at": "2024-01-15T10:30:00.000Z",
     "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/whatsapp",
-    "rate_limits": {
-      "messages_per_second": 80,
-      "messages_per_day": 1000
+    "account_id": "1234567890",
+    "account": "demo_weibo_account",
+    "credentials": {
+      "access_token": "weibo_demo_token",
+      "refresh_token": "weibo_refresh_token"
     },
+    "config": {
+      "api_endpoint": "https://api.weibo.com/2",
+      "rate_limits": {
+        "requests_per_hour": 150,
+        "requests_per_day": 1000
+      }
+    },
+    "features": ["发布内容", "用户互动", "数据分析"],
     "metadata": {
-      "business_name": "AI SEO+ Business",
-      "verified": true,
-      "tier": "business"
+      "connected_at": "2024-01-10T08:00:00.000Z",
+      "version": "1.0"
     },
-    "createdAt": 1705276800000,
-    "updatedAt": 1705276800000
+    "error_message": null,
+    "retry_count": 0
   },
   {
-    "_id": "integration_2",
-    "platform": "facebook",
-    "name": "Facebook Messenger",
-    "credentials": {
-      "app_id": "fb_app_123",
-      "app_secret": "fb_secret_encrypted",
-      "page_access_token": "fb_page_token_encrypted",
-      "verify_token": "fb_verify_123"
-    },
+    "name": "twitter",
+    "display_name": "Twitter",
+    "platform_type": "social",
+    "region": "global",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "tweet", "user_info"],
     "status": "connected",
-    "account": "business.page@facebook.com",
-    "last_sync_at": 1705273200000,
+    "last_sync_at": "2024-01-15T09:45:00.000Z",
     "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/facebook",
-    "rate_limits": {
-      "messages_per_second": 200,
-      "messages_per_day": 10000
+    "account_id": "twitter_demo_id",
+    "account": "demo_twitter_handle",
+    "credentials": {
+      "access_token": "twitter_demo_token",
+      "access_token_secret": "twitter_demo_secret"
     },
+    "config": {
+      "api_endpoint": "https://api.twitter.com/2",
+      "rate_limits": {
+        "requests_per_hour": 300,
+        "requests_per_day": 2000
+      }
+    },
+    "features": ["推文", "话题标签", "实时趋势"],
     "metadata": {
-      "page_name": "AI SEO+ Business Page",
-      "page_id": "123456789012345",
-      "verified": true
+      "connected_at": "2024-01-12T14:30:00.000Z",
+      "version": "1.0"
     },
-    "createdAt": 1705273200000,
-    "updatedAt": 1705273200000
+    "error_message": null,
+    "retry_count": 0
   },
   {
-    "_id": "integration_3",
-    "platform": "ga",
-    "name": "Google Analytics",
-    "credentials": {
-      "client_id": "ga_client_123",
-      "client_secret": "ga_secret_encrypted",
-      "refresh_token": "ga_refresh_encrypted",
-      "property_id": "GA4-123456789"
+    "name": "douyin",
+    "display_name": "抖音",
+    "platform_type": "video",
+    "region": "cn",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "video_upload", "live"],
+    "status": "disconnected",
+    "last_sync_at": null,
+    "sync_enabled": false,
+    "account_id": null,
+    "account": null,
+    "credentials": {},
+    "config": {
+      "api_endpoint": "https://open.douyin.com",
+      "rate_limits": {
+        "requests_per_hour": 200,
+        "requests_per_day": 1500
+      }
     },
-    "status": "connected",
-    "account": "GA-123456789",
-    "last_sync_at": 1705269600000,
-    "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/ga",
-    "rate_limits": {
-      "requests_per_day": 10000,
-      "requests_per_100_seconds": 100
-    },
+    "features": ["短视频发布", "直播", "电商数据"],
     "metadata": {
-      "property_name": "AI SEO+ Website",
-      "account_name": "AI SEO+ Analytics",
-      "timezone": "America/New_York"
+      "connected_at": null,
+      "version": "1.0"
     },
-    "createdAt": 1705269600000,
-    "updatedAt": 1705269600000
+    "error_message": null,
+    "retry_count": 0
+  },
+  {
+    "name": "facebook",
+    "display_name": "Facebook",
+    "platform_type": "social",
+    "region": "global",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "pages", "groups"],
+    "status": "connected",
+    "last_sync_at": "2024-01-15T11:20:00.000Z",
+    "sync_enabled": true,
+    "account_id": "fb_demo_page_id",
+    "account": "Demo Facebook Page",
+    "credentials": {
+      "access_token": "fb_demo_token",
+      "page_access_token": "fb_page_token"
+    },
+    "config": {
+      "api_endpoint": "https://graph.facebook.com/v18.0",
+      "rate_limits": {
+        "requests_per_hour": 200,
+        "requests_per_day": 1000
+      }
+    },
+    "features": ["帖子", "群组", "广告管理"],
+    "metadata": {
+      "connected_at": "2024-01-11T16:45:00.000Z",
+      "version": "1.0"
+    },
+    "error_message": null,
+    "retry_count": 0
+  },
+  {
+    "name": "bilibili",
+    "display_name": "B站",
+    "platform_type": "video",
+    "region": "cn",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "video_upload"],
+    "status": "connected",
+    "last_sync_at": "2024-01-15T08:15:00.000Z",
+    "sync_enabled": true,
+    "account_id": "bili_demo_uid",
+    "account": "Demo B站用户",
+    "credentials": {
+      "access_token": "bili_demo_token",
+      "sessdata": "bili_sessdata"
+    },
+    "config": {
+      "api_endpoint": "https://api.bilibili.com/x",
+      "rate_limits": {
+        "requests_per_hour": 100,
+        "requests_per_day": 800
+      }
+    },
+    "features": ["视频发布", "弹幕互动", "UP主数据"],
+    "metadata": {
+      "connected_at": "2024-01-13T10:20:00.000Z",
+      "version": "1.0"
+    },
+    "error_message": null,
+    "retry_count": 0
+  },
+  {
+    "name": "instagram",
+    "display_name": "Instagram",
+    "platform_type": "social",
+    "region": "global",
+    "auth_type": "oauth",
+    "scopes": ["read", "write", "media", "user_info"],
+    "status": "disconnected",
+    "last_sync_at": null,
+    "sync_enabled": false,
+    "account_id": null,
+    "account": null,
+    "credentials": {},
+    "config": {
+      "api_endpoint": "https://graph.instagram.com",
+      "rate_limits": {
+        "requests_per_hour": 200,
+        "requests_per_day": 1000
+      }
+    },
+    "features": ["帖子", "故事", "Reels"],
+    "metadata": {
+      "connected_at": null,
+      "version": "1.0"
+    },
+    "error_message": null,
+    "retry_count": 0
   }
 ]
-  
