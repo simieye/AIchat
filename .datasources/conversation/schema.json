@@ -37,9 +37,38 @@
       "type": "String"
     },
     {
+      "name": "last_interaction_at",
+      "title": "最后交互时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
       "name": "unread_count",
       "title": "未读消息数",
       "type": "Number"
+    },
+    {
+      "name": "assigned_to",
+      "title": "分配给",
+      "type": "String"
+    },
+    {
+      "name": "priority",
+      "title": "优先级",
+      "type": "String"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
     }
   ]
 }

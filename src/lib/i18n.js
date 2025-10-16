@@ -1,4 +1,7 @@
 
+// @ts-ignore;
+import React, { useState } from 'react';
+
 // 国际化配置
 export const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -41,6 +44,10 @@ export const translations = {
     add: 'Add',
     search: 'Search',
     confirm: 'Confirm',
+    newLead: 'New lead',
+    from: 'From',
+    newConversation: 'New conversation',
+    platform: 'Platform',
     
     // 导航
     dashboard: 'Dashboard',
@@ -91,10 +98,6 @@ export const translations = {
     status: 'Status',
     createdAt: 'Created At',
     updatedAt: 'Updated At',
-    newLead: 'New lead',
-    from: 'From',
-    newConversation: 'New conversation',
-    platform: 'Platform',
     
     // Integration
     integrationManagement: 'Integration Management',
@@ -107,11 +110,6 @@ export const translations = {
     disconnect: 'Disconnect',
     dataMapping: 'Data Mapping',
     syncLogs: 'Sync Logs',
-    connectPlatform: 'Connect Platform',
-    platformConnected: 'Platform connected',
-    platformDisconnected: 'Platform disconnected',
-    connectionTestSuccess: 'connection test successful',
-    connectionTestFailed: 'Connection test failed',
     
     // Settings
     settings: 'Settings',
@@ -130,6 +128,9 @@ export const translations = {
     
     // 操作
     testConnection: 'Test Connection',
+    connectPlatform: 'Connect Platform',
+    platformConnected: 'Platform connected',
+    platformDisconnected: 'Platform disconnected',
     
     // 错误信息
     errorLoadingData: 'Error loading data',
@@ -148,6 +149,10 @@ export const translations = {
     add: '添加',
     search: '搜索',
     confirm: '确认',
+    newLead: '新潜在客户',
+    from: '来自',
+    newConversation: '新对话',
+    platform: '平台',
     
     // 导航
     dashboard: '仪表板',
@@ -198,10 +203,6 @@ export const translations = {
     status: '状态',
     createdAt: '创建时间',
     updatedAt: '更新时间',
-    newLead: '新潜在客户',
-    from: '来自',
-    newConversation: '新对话',
-    platform: '平台',
     
     // Integration
     integrationManagement: '集成管理',
@@ -214,11 +215,6 @@ export const translations = {
     disconnect: '断开连接',
     dataMapping: '数据映射',
     syncLogs: '同步日志',
-    connectPlatform: '连接平台',
-    platformConnected: '平台已连接',
-    platformDisconnected: '平台已断开',
-    connectionTestSuccess: '连接测试成功',
-    connectionTestFailed: '连接测试失败',
     
     // Settings
     settings: '设置',
@@ -237,6 +233,9 @@ export const translations = {
     
     // 操作
     testConnection: '测试连接',
+    connectPlatform: '连接平台',
+    platformConnected: '平台已连接',
+    platformDisconnected: '平台已断开',
     
     // 错误信息
     errorLoadingData: '加载数据时出错',

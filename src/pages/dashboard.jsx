@@ -105,7 +105,7 @@ export default function Dashboard(props) {
         methodName: 'wedaGetRecordsV2',
         params: {
           orderBy: [{
-            createdAt: 'desc'
+            last_interaction_at: 'desc'
           }],
           pageSize: 5,
           getCount: true
@@ -127,9 +127,10 @@ export default function Dashboard(props) {
           id: conv._id,
           type: 'message',
           title: t('newConversation'),
-          description: `${t('platform')}: ${conv.platform || 'Unknown'}`,
-          time: new Date(conv.createdAt).toLocaleString(),
-          value: 0
+          description: `${t('platform')}: ${conv.platform || 'Unknown'} - ${conv.last_message?.substring(0, 50) || 'No message'}`,
+          time: new Date(conv.last_interaction_at).toLocaleString(),
+          value: 0,
+          unreadCount: conv.unread_count || 0
         })));
       }
       setActivities(activities.sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 10));
