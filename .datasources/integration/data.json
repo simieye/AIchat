@@ -1,85 +1,596 @@
 
 [
   {
-    "_id": "integration_1",
-    "platform": "whatsapp",
-    "name": "WhatsApp Business",
+    "_id": "integration_weibo",
+    "platform": "weibo",
+    "platform_type": "social",
+    "region": "cn",
+    "name": "weibo",
+    "display_name": "微博开放平台",
     "credentials": {
-      "api_key": "wa_api_key_encrypted",
-      "access_token": "wa_token_encrypted",
-      "phone_number_id": "1234567890",
-      "business_account_id": "business_123"
+      "app_key": "wb_app_key_123456",
+      "app_secret": "wb_app_secret_encrypted",
+      "access_token": "wb_access_token_encrypted",
+      "uid": "1234567890"
     },
+    "auth_type": "oauth2",
+    "scopes": ["read", "write", "user_info", "post"],
+    "features": ["发布内容", "用户互动", "数据分析", "话题营销"],
+    "category": "social_media",
     "status": "connected",
-    "account": "+1-234-567-8900",
+    "account": "@aiseo_official",
+    "account_id": "1234567890",
     "last_sync_at": 1705276800000,
     "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/whatsapp",
+    "webhook_url": "https://api.aiseo.com/webhooks/weibo",
     "rate_limits": {
-      "messages_per_second": 80,
-      "messages_per_day": 1000
+      "requests_per_hour": 150,
+      "posts_per_day": 100,
+      "requests_per_day": 1000
     },
     "metadata": {
-      "business_name": "AI SEO+ Business",
+      "screen_name": "AI SEO+ 官方微博",
+      "followers_count": 50000,
       "verified": true,
-      "tier": "business"
+      "location": "北京",
+      "description": "AI驱动的营销自动化平台",
+      "profile_image_url": "https://example.com/weibo_avatar.jpg"
     },
+    "config": {
+      "auto_post": true,
+      "hashtags": ["#AISEO", "#营销自动化", "#微博营销"],
+      "business_hours": "09:00-18:00",
+      "timezone": "Asia/Shanghai"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "📱",
+    "color": "#E6162D",
+    "description": "中国最大的社交媒体平台之一",
     "createdAt": 1705276800000,
     "updatedAt": 1705276800000
   },
   {
-    "_id": "integration_2",
-    "platform": "facebook",
-    "name": "Facebook Messenger",
+    "_id": "integration_bilibili",
+    "platform": "bilibili",
+    "platform_type": "video",
+    "region": "cn",
+    "name": "bilibili",
+    "display_name": "哔哩哔哩开放平台",
     "credentials": {
-      "app_id": "fb_app_123",
-      "app_secret": "fb_secret_encrypted",
-      "page_access_token": "fb_page_token_encrypted",
-      "verify_token": "fb_verify_123"
+      "access_key": "bili_access_key_123456",
+      "secret_key": "bili_secret_key_encrypted",
+      "sessdata": "bili_sessdata_encrypted",
+      "bili_jct": "bili_jct_encrypted"
     },
+    "auth_type": "cookie",
+    "scopes": ["user_info", "video_upload", "danmaku"],
+    "features": ["视频发布", "弹幕互动", "UP主数据", "直播管理"],
+    "category": "video_platform",
     "status": "connected",
-    "account": "business.page@facebook.com",
+    "account": "AISEO官方账号",
+    "account_id": "12345678",
     "last_sync_at": 1705273200000,
     "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/facebook",
+    "webhook_url": "https://api.aiseo.com/webhooks/bilibili",
     "rate_limits": {
-      "messages_per_second": 200,
-      "messages_per_day": 10000
+      "requests_per_day": 10000,
+      "videos_per_day": 10,
+      "comments_per_day": 100
     },
     "metadata": {
-      "page_name": "AI SEO+ Business Page",
-      "page_id": "123456789012345",
-      "verified": true
+      "mid": 12345678,
+      "name": "AI SEO+ 官方账号",
+      "level": 6,
+      "followers": 250000,
+      "verified": true,
+      "video_count": 156,
+      "total_views": 5000000
     },
+    "config": {
+      "auto_upload": false,
+      "default_tags": ["AI", "营销", "教程", "B站"],
+      "video_quality": "1080p",
+      "category": "科技"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "📺",
+    "color": "#00A1D6",
+    "description": "中国领先的视频分享平台",
     "createdAt": 1705273200000,
     "updatedAt": 1705273200000
   },
   {
-    "_id": "integration_3",
-    "platform": "ga",
-    "name": "Google Analytics",
+    "_id": "integration_douyin",
+    "platform": "douyin",
+    "platform_type": "video",
+    "region": "cn",
+    "name": "douyin",
+    "display_name": "抖音开放平台",
     "credentials": {
-      "client_id": "ga_client_123",
-      "client_secret": "ga_secret_encrypted",
-      "refresh_token": "ga_refresh_encrypted",
-      "property_id": "GA4-123456789"
+      "client_key": "dy_client_key_123456",
+      "client_secret": "dy_client_secret_encrypted",
+      "access_token": "dy_access_token_encrypted",
+      "open_id": "dy_open_id_encrypted"
     },
+    "auth_type": "oauth2",
+    "scopes": ["user_info", "video.list", "video.data", "video.create", "live", "ecommerce"],
+    "features": ["短视频发布", "直播", "电商数据", "挑战赛"],
+    "category": "short_video",
     "status": "connected",
-    "account": "GA-123456789",
+    "account": "aiseo.douyin",
+    "account_id": "douyin_123456789",
     "last_sync_at": 1705269600000,
     "sync_enabled": true,
-    "webhook_url": "https://api.aiseo.com/webhooks/ga",
+    "webhook_url": "https://api.aiseo.com/webhooks/douyin",
     "rate_limits": {
-      "requests_per_day": 10000,
-      "requests_per_100_seconds": 100
+      "requests_per_day": 2000,
+      "videos_per_day": 100,
+      "live_streams_per_day": 5
     },
     "metadata": {
-      "property_name": "AI SEO+ Website",
-      "account_name": "AI SEO+ Analytics",
-      "timezone": "America/New_York"
+      "nickname": "AI SEO+ 抖音号",
+      "avatar": "https://example.com/douyin_avatar.jpg",
+      "followers_count": 1000000,
+      "verified": true,
+      "total_likes": 50000000,
+      "total_videos": 234
     },
+    "config": {
+      "auto_sync": true,
+      "default_hashtags": ["#AI营销", "#抖音运营", "#短视频营销"],
+      "music_category": "流行",
+      "video_duration": "15-60s"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "🎵",
+    "color": "#000000",
+    "description": "中国最受欢迎的短视频平台",
     "createdAt": 1705269600000,
     "updatedAt": 1705269600000
-  }
-]
-  
+  },
+  {
+    "_id": "integration_kuaishou",
+    "platform": "kuaishou",
+    "platform_type": "video",
+    "region": "cn",
+    "name": "kuaishou",
+    "display_name": "快手开放平台",
+    "credentials": {
+      "app_id": "ks_app_id_123456",
+      "app_secret": "ks_app_secret_encrypted",
+      "access_token": "ks_access_token_encrypted",
+      "open_id": "ks_open_id_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["read", "write", "video_upload", "live", "ecommerce"],
+    "features": ["短视频", "直播", "电商", "同城服务"],
+    "category": "short_video",
+    "status": "error",
+    "account": "aiseo.kuaishou",
+    "account_id": "kuaishou_user_456",
+    "last_sync_at": 1705266000000,
+    "sync_enabled": false,
+    "webhook_url": "https://api.aiseo.com/webhooks/kuaishou",
+    "rate_limits": {
+      "requests_per_day": 1000,
+      "videos_per_day": 30,
+      "live_streams_per_day": 3
+    },
+    "metadata": {
+      "nickname": "AI SEO+ 快手号",
+      "followers_count": 300000,
+      "verified": true,
+      "total_likes": 15000000,
+      "total_videos": 156
+    },
+    "config": {
+      "auto_upload": false,
+      "default_hashtags": ["#快手运营", "#AI营销", "#短视频"],
+      "location": "全国",
+      "category": "生活"
+    },
+    "error_message": "Access token expired, please reauthorize",
+    "retry_count": 5,
+    "icon": "📹",
+    "color": "#FF6B35",
+    "description": "中国领先的短视频和直播平台",
+    "createdAt": 1705266000000,
+    "updatedAt": 1705266000000
+  },
+  {
+    "_id": "integration_xiaohongshu",
+    "platform": "xiaohongshu",
+    "platform_type": "social",
+    "region": "cn",
+    "name": "xiaohongshu",
+    "display_name": "小红书开放平台",
+    "credentials": {
+      "client_id": "xhs_client_id_123456",
+      "client_secret": "xhs_client_secret_encrypted",
+      "access_token": "xhs_access_token_encrypted",
+      "user_id": "xhs_user_id_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["user_info", "note.list", "note.publish"],
+    "features": ["笔记发布", "种草营销", "用户画像", "品牌合作"],
+    "category": "lifestyle",
+    "status": "disconnected",
+    "account": null,
+    "account_id": null,
+    "last_sync_at": null,
+    "sync_enabled": false,
+    "webhook_url": "https://api.aiseo.com/webhooks/xiaohongshu",
+    "rate_limits": {
+      "requests_per_day": 2000,
+      "notes_per_day": 20,
+      "images_per_day": 100
+    },
+    "metadata": {
+      "description": "小红书生活方式分享平台",
+      "category": "美妆时尚",
+      "tags": ["种草", "美妆", "穿搭", "旅行"]
+    },
+    "config": {
+      "auto_publish": false,
+      "default_tags": ["#AI营销", "#小红书运营", "#种草笔记"],
+      "content_type": "图文",
+      "target_audience": "年轻女性"
+    },
+    "error_message": "需要重新授权",
+    "retry_count": 3,
+    "icon": "📒",
+    "color": "#FE2C55",
+    "description": "中国生活方式分享平台",
+    "createdAt": 1705262400000,
+    "updatedAt": 1705262400000
+  },
+  {
+    "_id": "integration_zhihu",
+    "platform": "zhihu",
+    "platform_type": "social",
+    "region": "cn",
+    "name": "zhihu",
+    "display_name": "知乎开放平台",
+    "credentials": {
+      "client_id": "zh_client_id_123456",
+      "client_secret": "zh_client_secret_encrypted",
+      "access_token": "zh_access_token_encrypted",
+      "uid": "zh_uid_123456"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["read", "write", "user_info", "answer", "article"],
+    "features": ["问答", "专栏", "知识付费", "圆桌讨论"],
+    "category": "knowledge",
+    "status": "pending",
+    "account": "AISEO官方账号",
+    "account_id": "zhihu_user_789",
+    "last_sync_at": 1705258800000,
+    "sync_enabled": false,
+    "webhook_url": "https://api.aiseo.com/webhooks/zhihu",
+    "rate_limits": {
+      "requests_per_day": 1000,
+      "answers_per_day": 10,
+      "articles_per_day": 5
+    },
+    "metadata": {
+      "name": "AI SEO+ 官方账号",
+      "followers_count": 50000,
+      "verified": true,
+      "total_answers": 234,
+      "total_articles": 56,
+      "specialties": ["AI", "营销", "技术"]
+    },
+    "config": {
+      "auto_answer": false,
+      "default_topics": ["人工智能", "数字营销", "SEO优化"],
+      "content_length": "medium",
+      "interaction_style": "专业"
+    },
+    "error_message": "等待企业认证审核",
+    "retry_count": 2,
+    "icon": "❓",
+    "color": "#0066FF",
+    "description": "中国知识分享社区",
+    "createdAt": 1705258800000,
+    "updatedAt": 1705258800000
+  },
+  {
+    "_id": "integration_twitter",
+    "platform": "twitter",
+    "platform_type": "social",
+    "region": "global",
+    "name": "twitter",
+    "display_name": "Twitter API",
+    "credentials": {
+      "api_key": "tw_api_key_123456",
+      "api_secret": "tw_api_secret_encrypted",
+      "access_token": "tw_access_token_encrypted",
+      "access_token_secret": "tw_access_token_secret_encrypted"
+    },
+    "auth_type": "oauth1",
+    "scopes": ["read", "write", "tweet", "user_info", "dm"],
+    "features": ["推文", "话题标签", "实时趋势", "私信"],
+    "category": "social_media",
+    "status": "connected",
+    "account": "@aiseo_ai",
+    "account_id": "123456789",
+    "last_sync_at": 1705255200000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/twitter",
+    "rate_limits": {
+      "tweets_per_3_hours": 300,
+      "requests_per_15_minutes": 900,
+      "dms_per_day": 1000
+    },
+    "metadata": {
+      "screen_name": "aiseo_ai",
+      "name": "AI SEO+",
+      "followers_count": 15000,
+      "verified": false,
+      "total_tweets": 1234,
+      "total_likes": 50000
+    },
+    "config": {
+      "auto_tweet": false,
+      "default_hashtags": ["#AI", "#Marketing", "#SEO", "#SocialMedia"],
+      "tweet_length": 280,
+      "media_support": true
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "🐦",
+    "color": "#1DA1F2",
+    "description": "全球实时信息分享平台",
+    "createdAt": 1705255200000,
+    "updatedAt": 1705255200000
+  },
+  {
+    "_id": "integration_facebook",
+    "platform": "facebook",
+    "platform_type": "social",
+    "region": "global",
+    "name": "facebook",
+    "display_name": "Facebook Graph API",
+    "credentials": {
+      "app_id": "fb_app_id_123456",
+      "app_secret": "fb_app_secret_encrypted",
+      "access_token": "fb_page_token_encrypted",
+      "page_id": "fb_page_123456"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["pages_manage_posts", "pages_read_engagement", "pages_messaging", "ads_read"],
+    "features": ["帖子", "群组", "广告管理", "直播"],
+    "category": "social_media",
+    "status": "connected",
+    "account": "AI SEO+ Business Page",
+    "account_id": "123456789012345",
+    "last_sync_at": 1705251600000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/facebook",
+    "rate_limits": {
+      "messages_per_second": 200,
+      "messages_per_day": 10000,
+      "posts_per_day": 25
+    },
+    "metadata": {
+      "page_name": "AI SEO+ Business Page",
+      "page_id": "123456789012345",
+      "verified": true,
+      "followers": 12500,
+      "category": "Software Company",
+      "website": "https://aiseo.com"
+    },
+    "config": {
+      "auto_response": true,
+      "welcome_message": "Thanks for messaging us!",
+      "default_hashtags": ["#AISEO", "#FacebookMarketing", "#Business"],
+      "posting_schedule": "auto"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "👤",
+    "color": "#1877F2",
+    "description": "全球最大的社交网络",
+    "createdAt": 1705251600000,
+    "updatedAt": 1705251600000
+  },
+  {
+    "_id": "integration_instagram",
+    "platform": "instagram",
+    "platform_type": "social",
+    "region": "global",
+    "name": "instagram",
+    "display_name": "Instagram Graph API",
+    "credentials": {
+      "app_id": "ig_app_id_123456",
+      "app_secret": "ig_app_secret_encrypted",
+      "access_token": "ig_access_token_encrypted",
+      "user_id": "ig_user_id_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["instagram_basic", "instagram_content_publish", "instagram_manage_insights"],
+    "features": ["帖子", "故事", "Reels", "购物标签"],
+    "category": "visual_content",
+    "status": "connected",
+    "account": "@aiseo.ai",
+    "account_id": "12345678901234567",
+    "last_sync_at": 1705248000000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/instagram",
+    "rate_limits": {
+      "requests_per_hour": 200,
+      "posts_per_day": 25,
+      "stories_per_day": 100
+    },
+    "metadata": {
+      "username": "aiseo.ai",
+      "followers_count": 85000,
+      "verified": true,
+      "media_count": 234,
+      "total_likes": 2000000,
+      "bio": "AI驱动的营销自动化平台"
+    },
+    "config": {
+      "auto_post": false,
+      "default_hashtags": ["#AISEO", "#InstagramMarketing", "#VisualContent"],
+      "post_type": "carousel",
+      "story_templates": ["tips", "behind_scenes", "user_generated"]
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "📷",
+    "color": "#E4405F",
+    "description": "图片和视频分享平台",
+    "createdAt": 1705248000000,
+    "updatedAt": 1705248000000
+  },
+  {
+    "_id": "integration_linkedin",
+    "platform": "linkedin",
+    "platform_type": "professional",
+    "region": "global",
+    "name": "linkedin",
+    "display_name": "LinkedIn API",
+    "credentials": {
+      "client_id": "li_client_id_123456",
+      "client_secret": "li_client_secret_encrypted",
+      "access_token": "li_access_token_encrypted",
+      "person_id": "li_person_id_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["r_liteprofile", "r_emailaddress", "w_member_social", "w_organization_social"],
+    "features": ["动态", "文章", "职业数据", "公司主页"],
+    "category": "professional",
+    "status": "connected",
+    "account": "AI SEO+ Company",
+    "account_id": "company_123456",
+    "last_sync_at": 1705244400000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/linkedin",
+    "rate_limits": {
+      "requests_per_day": 500,
+      "posts_per_day": 50,
+      "shares_per_day": 25
+    },
+    "metadata": {
+      "company_name": "AI SEO+",
+      "company_size": "11-50",
+      "industry": "Marketing & Advertising",
+      "followers": 5000,
+      "employees": 25,
+      "specialties": ["AI Marketing", "SEO", "Social Media Automation"]
+    },
+    "config": {
+      "auto_share": false,
+      "default_hashtags": ["#AI", "#Marketing", "#B2B", "#LinkedIn"],
+      "content_type": "professional",
+      "target_audience": "marketers"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "💼",
+    "color": "#0A66C2",
+    "description": "职业社交平台",
+    "createdAt": 1705244400000,
+    "updatedAt": 1705244400000
+  },
+  {
+    "_id": "integration_youtube",
+    "platform": "youtube",
+    "platform_type": "video",
+    "region": "global",
+    "name": "youtube",
+    "display_name": "YouTube Data API",
+    "credentials": {
+      "client_id": "yt_client_id_123456",
+      "client_secret": "yt_client_secret_encrypted",
+      "access_token": "yt_access_token_encrypted",
+      "refresh_token": "yt_refresh_token_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.force-ssl"],
+    "features": ["视频", "直播", "频道管理", "数据分析"],
+    "category": "video_platform",
+    "status": "connected",
+    "account": "AI SEO+ Channel",
+    "account_id": "UC123456789012345678",
+    "last_sync_at": 1705240800000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/youtube",
+    "rate_limits": {
+      "requests_per_day": 10000,
+      "uploads_per_day": 100,
+      "comments_per_day": 1000
+    },
+    "metadata": {
+      "channel_name": "AI SEO+",
+      "subscribers": 25000,
+      "total_views": 5000000,
+      "total_videos": 123,
+      "verified": true,
+      "description": "AI驱动的营销教程和案例分析"
+    },
+    "config": {
+      "auto_upload": false,
+      "default_tags": ["AI", "SEO", "Marketing", "Tutorial", "YouTube"],
+      "video_quality": "1080p",
+      "category": "Education"
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "▶️",
+    "color": "#FF0000",
+    "description": "全球最大的视频平台",
+    "createdAt": 1705240800000,
+    "updatedAt": 1705240800000
+  },
+  {
+    "_id": "integration_tiktok",
+    "platform": "tiktok",
+    "platform_type": "video",
+    "region": "global",
+    "name": "tiktok",
+    "display_name": "TikTok for Developers",
+    "credentials": {
+      "client_key": "tt_client_key_123456",
+      "client_secret": "tt_client_secret_encrypted",
+      "access_token": "tt_access_token_encrypted",
+      "open_id": "tt_open_id_encrypted"
+    },
+    "auth_type": "oauth2",
+    "scopes": ["user.info.basic", "video.list", "video.upload", "live", "ecommerce"],
+    "features": ["短视频", "直播", "挑战", "电商"],
+    "category": "short_video",
+    "status": "connected",
+    "account": "@aiseo.tiktok",
+    "account_id": "tiktok_user_123",
+    "last_sync_at": 1705237200000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/tiktok",
+    "rate_limits": {
+      "requests_per_day": 1000,
+      "videos_per_day": 50,
+      "live_streams_per_day": 10
+    },
+    "metadata": {
+      "username": "aiseo.tiktok",
+      "display_name": "AI SEO+ TikTok",
+      "followers_count": 200000,
+      "verified": true,
+      "total_likes": 10000000,
+      "total_videos": 89
+    },
+    "config": {
+      "auto_upload": false,
+      "default_hashtags": ["#AISEO", "#TikTokMarketing", "#Viral", "#ShortVideo"],
+      "video_duration": "15-60s",
+      "trending_sounds": true
+    },
+    "error_message": null,
+    "retry_count": 0,
+    "icon": "🎵",
+    "color": "#FF0050",
+    "description": "全球短视频

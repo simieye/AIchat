@@ -5,7 +5,17 @@
   "schemas": [
     {
       "name": "platform",
+      "title": "平台标识",
+      "type": "String"
+    },
+    {
+      "name": "platform_type",
       "title": "平台类型",
+      "type": "String"
+    },
+    {
+      "name": "region",
+      "title": "地区",
       "type": "String"
     },
     {
@@ -14,9 +24,40 @@
       "type": "String"
     },
     {
+      "name": "display_name",
+      "title": "显示名称",
+      "type": "String"
+    },
+    {
       "name": "credentials",
       "title": "连接凭证",
       "type": "Object"
+    },
+    {
+      "name": "auth_type",
+      "title": "认证类型",
+      "type": "String"
+    },
+    {
+      "name": "scopes",
+      "title": "权限范围",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "features",
+      "title": "支持功能",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "category",
+      "title": "平台分类",
+      "type": "String"
     },
     {
       "name": "status",
@@ -26,6 +67,11 @@
     {
       "name": "account",
       "title": "账户信息",
+      "type": "String"
+    },
+    {
+      "name": "account_id",
+      "title": "账户ID",
       "type": "String"
     },
     {
@@ -53,6 +99,36 @@
       "name": "metadata",
       "title": "元数据",
       "type": "Object"
+    },
+    {
+      "name": "config",
+      "title": "配置信息",
+      "type": "Object"
+    },
+    {
+      "name": "error_message",
+      "title": "错误信息",
+      "type": "String"
+    },
+    {
+      "name": "retry_count",
+      "title": "重试次数",
+      "type": "Number"
+    },
+    {
+      "name": "icon",
+      "title": "平台图标",
+      "type": "String"
+    },
+    {
+      "name": "color",
+      "title": "品牌颜色",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "平台描述",
+      "type": "String"
     }
   ]
 }

@@ -39,7 +39,7 @@ export default function Dashboard(props) {
           orderBy: [{
             recorded_at: 'desc'
           }],
-          pageSize: 50,
+          pageSize: 100,
           getCount: true
         }
       });
@@ -64,7 +64,7 @@ export default function Dashboard(props) {
         // 计算变化率（与前一天比较）
         const metricsArray = Object.values(latestMetrics);
         const metricsWithChange = metricsArray.map(metric => {
-          const previousRecord = result.records.find(r => r.metric_name === metric.metricName && new Date(r.recorded_at) < new Date(metric.recordedAt));
+          const previousRecord = result.records.find(r => r.metric_name === metric.metricName && new Date(r.recorded_at) < new Date(metric.recordedAt) && new Date(r.recorded_at) >= new Date(new Date(metric.recordedAt).getTime() - 24 * 60 * 60 * 1000));
           const change = previousRecord ? (metric.value - previousRecord.value) / previousRecord.value * 100 : 0;
           return {
             ...metric,
@@ -72,12 +72,22 @@ export default function Dashboard(props) {
           };
         });
         setMetrics(metricsWithChange);
-        // 准备图表数据
-        const chartMetrics = result.records.filter(r => ['total_leads', 'total_messages', 'total_views', 'total_revenue'].includes(r.metric_name)).slice(0, 30).map(record => ({
-          name: new Date(record.recorded_at).toLocaleDateString(),
-          value: record.value,
-          metric: record.metric_name
-        }));
+        // 准备图表数据 - 按日期和指标分组
+        const chartDataByDate = {};
+        result.records.forEach(record => {
+          const date = new Date(record.recorded_at).toLocaleDateString();
+          if (!chartDataByDate[date]) {
+            chartDataByDate[date] = {};
+          }
+          chartDataByDate[date][record.metric_name] = record.value;
+        });
+        const chartMetrics = Object.entries(chartDataByDate).map(([date, values]) => ({
+          name: date,
+          leads: values.total_leads || 0,
+          messages: values.total_messages || 0,
+          views: values.total_views || 0,
+          revenue: values.total_revenue || 0
+        })).slice(-30); // 最近30天
         setChartData(chartMetrics);
       }
     } catch (error) {

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { Card, CardContent, CardHeader, CardTitle, Button, useToast, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 // @ts-ignore;
-import { Plus, RefreshCw, Settings, Link } from 'lucide-react';
+import { Plus, RefreshCw, Settings, Link, Globe, Video, Users, MessageSquare, ShoppingBag, BookOpen, Music } from 'lucide-react';
 
 import { Layout } from '@/components/Layout';
 import { PlatformCard } from '@/components/PlatformCard';
@@ -13,95 +13,103 @@ import { SyncLogs } from '@/components/SyncLogs';
 // @ts-ignore;
 import { useTranslation } from '@/lib/i18n';
 
-// 扩展的平台配置，包含新增的5个平台
+// 扩展的平台配置 - 支持12个国内外主流平台
 const platformConfigs = {
   weibo: {
     name: '微博',
-    icon: '博',
+    icon: '📱',
     color: '#E6162D',
     description: '中国最大的社交媒体平台之一',
     platform_type: 'social',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'user_info'],
-    features: ['发布内容', '用户互动', '数据分析']
+    scopes: ['read', 'write', 'user_info', 'post'],
+    features: ['发布内容', '用户互动', '数据分析', '话题营销'],
+    category: 'social_media'
   },
   bilibili: {
     name: 'B站',
-    icon: 'B',
+    icon: '📺',
     color: '#00A1D6',
     description: '中国领先的视频分享平台',
     platform_type: 'video',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'video_upload'],
-    features: ['视频发布', '弹幕互动', 'UP主数据']
+    scopes: ['read', 'write', 'video_upload', 'danmaku'],
+    features: ['视频发布', '弹幕互动', 'UP主数据', '直播管理'],
+    category: 'video_platform'
   },
   douyin: {
     name: '抖音',
-    icon: '♪',
+    icon: '🎵',
     color: '#000000',
     description: '中国最受欢迎的短视频平台',
     platform_type: 'video',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'video_upload', 'live'],
-    features: ['短视频发布', '直播', '电商数据']
+    scopes: ['read', 'write', 'video_upload', 'live', 'ecommerce'],
+    features: ['短视频发布', '直播', '电商数据', '挑战赛'],
+    category: 'short_video'
   },
   kuaishou: {
     name: '快手',
-    icon: 'K',
+    icon: '📹',
     color: '#FF6B35',
     description: '中国领先的短视频和直播平台',
     platform_type: 'video',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'video_upload', 'live'],
-    features: ['短视频', '直播', '电商']
+    scopes: ['read', 'write', 'video_upload', 'live', 'ecommerce'],
+    features: ['短视频', '直播', '电商', '同城服务'],
+    category: 'short_video'
   },
   xiaohongshu: {
     name: '小红书',
-    icon: '红',
+    icon: '📒',
     color: '#FE2C55',
     description: '中国生活方式分享平台',
     platform_type: 'social',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'user_info'],
-    features: ['笔记发布', '种草营销', '用户画像']
+    scopes: ['read', 'write', 'user_info', 'note'],
+    features: ['笔记发布', '种草营销', '用户画像', '品牌合作'],
+    category: 'lifestyle'
   },
   zhihu: {
     name: '知乎',
-    icon: '知',
+    icon: '❓',
     color: '#0066FF',
     description: '中国知识分享社区',
     platform_type: 'social',
     region: 'cn',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'user_info'],
-    features: ['问答', '专栏', '知识付费']
+    scopes: ['read', 'write', 'user_info', 'answer', 'article'],
+    features: ['问答', '专栏', '知识付费', '圆桌讨论'],
+    category: 'knowledge'
   },
   twitter: {
     name: 'Twitter',
-    icon: '𝕏',
-    color: '#000000',
+    icon: '🐦',
+    color: '#1DA1F2',
     description: '全球实时信息分享平台',
     platform_type: 'social',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'tweet', 'user_info'],
-    features: ['推文', '话题标签', '实时趋势']
+    scopes: ['read', 'write', 'tweet', 'user_info', 'dm'],
+    features: ['推文', '话题标签', '实时趋势', '私信'],
+    category: 'social_media'
   },
   facebook: {
     name: 'Facebook',
-    icon: 'f',
+    icon: '👤',
     color: '#1877F2',
     description: '全球最大的社交网络',
     platform_type: 'social',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'pages', 'groups'],
-    features: ['帖子', '群组', '广告管理']
+    scopes: ['read', 'write', 'pages', 'groups', 'ads'],
+    features: ['帖子', '群组', '广告管理', '直播'],
+    category: 'social_media'
   },
   instagram: {
     name: 'Instagram',
@@ -111,30 +119,33 @@ const platformConfigs = {
     platform_type: 'social',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'media', 'user_info'],
-    features: ['帖子', '故事', 'Reels']
+    scopes: ['read', 'write', 'media', 'user_info', 'story'],
+    features: ['帖子', '故事', 'Reels', '购物标签'],
+    category: 'visual_content'
   },
   linkedin: {
     name: 'LinkedIn',
-    icon: 'in',
+    icon: '💼',
     color: '#0A66C2',
     description: '职业社交平台',
     platform_type: 'professional',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'profile', 'posts'],
-    features: ['动态', '文章', '职业数据']
+    scopes: ['read', 'write', 'profile', 'posts', 'company'],
+    features: ['动态', '文章', '职业数据', '公司主页'],
+    category: 'professional'
   },
   youtube: {
     name: 'YouTube',
-    icon: '▶',
+    icon: '▶️',
     color: '#FF0000',
     description: '全球最大的视频平台',
     platform_type: 'video',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'upload', 'manage'],
-    features: ['视频', '直播', '频道管理']
+    scopes: ['read', 'write', 'upload', 'manage', 'analytics'],
+    features: ['视频', '直播', '频道管理', '数据分析'],
+    category: 'video_platform'
   },
   tiktok: {
     name: 'TikTok',
@@ -144,8 +155,9 @@ const platformConfigs = {
     platform_type: 'video',
     region: 'global',
     auth_type: 'oauth',
-    scopes: ['read', 'write', 'video_upload', 'live'],
-    features: ['短视频', '直播', '挑战']
+    scopes: ['read', 'write', 'video_upload', 'live', 'ecommerce'],
+    features: ['短视频', '直播', '挑战', '电商'],
+    category: 'short_video'
   }
 };
 export default function Integration(props) {
@@ -155,6 +167,8 @@ export default function Integration(props) {
   const [showWizard, setShowWizard] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [activeTab, setActiveTab] = useState('platforms');
+  const [filterRegion, setFilterRegion] = useState('all');
+  const [filterCategory, setFilterCategory] = useState('all');
   const {
     t
   } = useTranslation();
@@ -201,6 +215,7 @@ export default function Integration(props) {
           metadata: record.metadata || {},
           errorMessage: record.error_message,
           retryCount: record.retry_count || 0,
+          category: record.category || 'social_media',
           // 从配置中获取图标和颜色
           ...(platformConfigs[record.name?.toLowerCase()] || {
             icon: '🔗',
@@ -209,7 +224,7 @@ export default function Integration(props) {
           })
         }));
 
-        // 添加未连接的平台配置，包括新增的5个平台
+        // 添加未连接的平台配置
         const allPlatforms = Object.entries(platformConfigs).map(([key, config]) => {
           const existing = connectedPlatforms.find(p => p.name === key);
           if (existing) return existing;
@@ -222,6 +237,7 @@ export default function Integration(props) {
             authType: config.auth_type,
             scopes: config.scopes,
             features: config.features,
+            category: config.category,
             status: 'disconnected',
             lastSync: null,
             syncEnabled: false,
@@ -236,7 +252,7 @@ export default function Integration(props) {
         });
         setPlatforms(allPlatforms);
       } else {
-        // 如果没有记录，显示所有平台配置，包括新增的5个平台
+        // 如果没有记录，显示所有平台配置
         const allPlatforms = Object.entries(platformConfigs).map(([key, config]) => ({
           id: key,
           name: key,
@@ -246,6 +262,7 @@ export default function Integration(props) {
           authType: config.auth_type,
           scopes: config.scopes,
           features: config.features,
+          category: config.category,
           status: 'disconnected',
           lastSync: null,
           syncEnabled: false,
@@ -331,20 +348,26 @@ export default function Integration(props) {
         auth_type: platform.authType,
         scopes: platform.scopes,
         features: platform.features,
+        category: platform.category,
         status: 'connected',
         last_sync_at: new Date().toISOString(),
         sync_enabled: true,
         credentials: credentials,
         config: {
-          api_endpoint: platformConfigs[platform.name]?.authUrl || '',
+          api_endpoint: `https://api.${platform.name}.com`,
           rate_limits: {
-            requests_per_hour: 1000,
-            requests_per_day: 10000
+            requests_per_hour: platform.region === 'cn' ? 200 : 300,
+            requests_per_day: platform.region === 'cn' ? 2000 : 3000
           }
         },
         metadata: {
           connected_at: new Date().toISOString(),
-          version: '1.0'
+          version: '1.0',
+          platform_info: {
+            name: platform.displayName,
+            icon: platform.icon,
+            color: platform.color
+          }
         },
         error_message: null,
         retry_count: 0
@@ -392,6 +415,13 @@ export default function Integration(props) {
       });
     }
   };
+  const filteredPlatforms = platforms.filter(platform => {
+    if (filterRegion !== 'all' && platform.region !== filterRegion) return false;
+    if (filterCategory !== 'all' && platform.category !== filterCategory) return false;
+    return true;
+  });
+  const connectedCount = platforms.filter(p => p.status === 'connected').length;
+  const totalCount = platforms.length;
   useEffect(() => {
     fetchPlatforms();
   }, []);
@@ -414,10 +444,34 @@ export default function Integration(props) {
             </h2>
             <p className="text-muted-foreground">Connect and manage your social media platforms</p>
           </div>
-          <Button onClick={fetchPlatforms} variant="outline">
-            <RefreshCw className="w-4 h-4 mr-2" />
-            {t('refresh')}
-          </Button>
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              {connectedCount}/{totalCount} platforms connected
+            </div>
+            <Button onClick={fetchPlatforms} variant="outline">
+              <RefreshCw className="w-4 h-4 mr-2" />
+              {t('refresh')}
+            </Button>
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div className="flex gap-4 mb-6">
+          <select value={filterRegion} onChange={e => setFilterRegion(e.target.value)} className="px-3 py-2 border rounded-md bg-background">
+            <option value="all">All Regions</option>
+            <option value="cn">🇨🇳 China</option>
+            <option value="global">🌍 Global</option>
+          </select>
+          <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)} className="px-3 py-2 border rounded-md bg-background">
+            <option value="all">All Categories</option>
+            <option value="social_media">Social Media</option>
+            <option value="video_platform">Video Platform</option>
+            <option value="short_video">Short Video</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="knowledge">Knowledge</option>
+            <option value="professional">Professional</option>
+            <option value="visual_content">Visual Content</option>
+          </select>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
@@ -429,7 +483,7 @@ export default function Integration(props) {
 
           <TabsContent value="platforms">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {platforms.map(platform => <PlatformCard key={platform.id} platform={platform} onConnect={handleConnect} onDisconnect={handleDisconnect} />)}
+              {filteredPlatforms.map(platform => <PlatformCard key={platform.id} platform={platform} onConnect={handleConnect} onDisconnect={handleDisconnect} />)}
             </div>
           </TabsContent>
 

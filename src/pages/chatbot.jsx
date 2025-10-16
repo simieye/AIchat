@@ -1,9 +1,9 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardHeader, CardTitle, Button, useToast, Tabs, TabsContent, TabsList, TabsTrigger, Badge, Switch } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, useToast, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 // @ts-ignore;
-import { Plus, Edit, Trash2, Play, Pause, Settings, Bot, MessageSquare, Users, Clock } from 'lucide-react';
+import { Plus, Edit, Trash2, Play, Pause, Settings, Bot, MessageSquare } from 'lucide-react';
 
 import { Layout } from '@/components/Layout';
 import { ChatbotCard } from '@/components/ChatbotCard';
@@ -50,12 +50,15 @@ export default function Chatbot(props) {
           name: record.name,
           description: record.description,
           status: record.status,
-          platform: record.platform || 'web',
+          platform: record.platform,
+          config: record.config || {},
           createdAt: record.createdAt,
           updatedAt: record.updatedAt,
-          config: record.config || {},
-          triggers: record.triggers || [],
-          responses: record.responses || []
+          lastActive: record.last_active_at,
+          totalConversations: record.total_conversations || 0,
+          totalMessages: record.total_messages || 0,
+          responseRate: record.response_rate || 0,
+          averageResponseTime: record.average_response_time || 0
         })));
       }
     } catch (error) {
@@ -85,15 +88,18 @@ export default function Chatbot(props) {
           leadId: record.lead_id,
           platform: record.platform,
           status: record.status,
-          messages: record.messages || [],
           contact: record.contact || {},
-          lastMessage: record.last_message || '',
+          messages: record.messages || [],
+          lastMessage: record.last_message,
           lastInteractionAt: record.last_interaction_at,
           unreadCount: record.unread_count || 0,
           assignedTo: record.assigned_to,
-          priority: record.priority || 'medium',
+          priority: record.priority,
           tags: record.tags || [],
-          metadata: record.metadata || {}
+          metadata: record.metadata || {},
+          chatbotId: record.chatbot_id,
+          responseTime: record.response_time || 0,
+          satisfaction: record.satisfaction || 0
         })));
       }
     } catch (error) {
@@ -106,7 +112,7 @@ export default function Chatbot(props) {
   };
   const handleCreateChatbot = async chatbotData => {
     try {
-      await props.$w.cloud.callDataSource({
+      const result = await props.$w.cloud.callDataSource({
         dataSourceName: 'chatbot',
         methodName: 'wedaCreateV2',
         params: {
@@ -115,11 +121,14 @@ export default function Chatbot(props) {
             description: chatbotData.description,
             status: 'active',
             platform: chatbotData.platform,
-            config: chatbotData.config || {},
-            triggers: chatbotData.triggers || [],
-            responses: chatbotData.responses || [],
+            config: chatbotData.config,
             createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
+            last_active_at: new Date().toISOString(),
+            total_conversations: 0,
+            total_messages: 0,
+            response_rate: 0,
+            average_response_time: 0
           }
         }
       });
@@ -132,7 +141,7 @@ export default function Chatbot(props) {
       fetchChatbots();
     } catch (error) {
       toast({
-        title: t('error'),
+        title: t('errorCreatingChatbot'),
         description: error.message,
         variant: "destructive"
       });
@@ -164,7 +173,7 @@ export default function Chatbot(props) {
       fetchChatbots();
     } catch (error) {
       toast({
-        title: t('error'),
+        title: t('errorUpdatingChatbot'),
         description: error.message,
         variant: "destructive"
       });
@@ -192,7 +201,7 @@ export default function Chatbot(props) {
       fetchChatbots();
     } catch (error) {
       toast({
-        title: t('error'),
+        title: t('errorDeletingChatbot'),
         description: error.message,
         variant: "destructive"
       });
@@ -218,13 +227,13 @@ export default function Chatbot(props) {
         }
       });
       toast({
-        title: t('statusUpdated'),
+        title: t('chatbotStatusUpdated'),
         variant: "success"
       });
       fetchChatbots();
     } catch (error) {
       toast({
-        title: t('error'),
+        title: t('errorUpdatingStatus'),
         description: error.message,
         variant: "destructive"
       });
@@ -281,34 +290,24 @@ export default function Chatbot(props) {
               <CardContent>
                 <div className="space-y-4">
                   {conversations.length === 0 ? <div className="text-center text-muted-foreground py-8">
-                      No conversations yet
-                    </div> : conversations.map(conv => <div key={conv.id} className="border rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <MessageSquare className="h-4 w-4" />
-                          <span className="font-medium">{conv.contact.name || 'Anonymous'}</span>
-                          <Badge variant={conv.status === 'active' ? 'default' : 'secondary'}>
-                            {conv.status}
-                          </Badge>
-                          {conv.unreadCount > 0 && <Badge variant="destructive">
-                              {conv.unreadCount}
-                            </Badge>}
+                      No conversations found
+                    </div> : conversations.map(conversation => <div key={conversation.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-medium">{conversation.contact.name || 'Anonymous'}</h4>
+                          <p className="text-sm text-muted-foreground">{conversation.platform}</p>
                         </div>
-                        <span className="text-sm text-muted-foreground">
-                          {new Date(conv.lastInteractionAt).toLocaleString()}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-2 py-1 rounded text-xs ${conversation.status === 'active' ? 'bg-green-100 text-green-800' : conversation.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800'}`}>
+                            {conversation.status}
+                          </span>
+                          {conversation.unreadCount > 0 && <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                              {conversation.unreadCount}
+                            </span>}
+                        </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Platform: {conv.platform} | Priority: {conv.priority}
-                      </p>
-                      <p className="text-sm">
-                        {conv.lastMessage}
-                      </p>
-                      <div className="flex gap-2 mt-2">
-                        {conv.tags.map(tag => <Badge key={tag} variant="outline" className="text-xs">
-                            {tag}
-                          </Badge>)}
-                      </div>
+                      <p className="text-sm text-muted-foreground mt-2">{conversation.lastMessage}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{new Date(conversation.lastInteractionAt).toLocaleString()}</p>
                     </div>)}
                 </div>
               </CardContent>
@@ -321,20 +320,22 @@ export default function Chatbot(props) {
                 <CardTitle>Chatbot Analytics</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold">{conversations.length}</div>
+                    <div className="text-2xl font-bold">{chatbots.reduce((sum, bot) => sum + bot.totalConversations, 0)}</div>
                     <div className="text-sm text-muted-foreground">Total Conversations</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold">
-                      {conversations.filter(c => c.unreadCount > 0).length}
-                    </div>
-                    <div className="text-sm text-muted-foreground">Unread Messages</div>
+                    <div className="text-2xl font-bold">{chatbots.reduce((sum, bot) => sum + bot.totalMessages, 0)}</div>
+                    <div className="text-sm text-muted-foreground">Total Messages</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold">{chatbots.filter(c => c.status === 'active').length}</div>
-                    <div className="text-sm text-muted-foreground">Active Chatbots</div>
+                    <div className="text-2xl font-bold">{Math.round(chatbots.reduce((sum, bot) => sum + bot.responseRate, 0) / chatbots.length || 0)}%</div>
+                    <div className="text-sm text-muted-foreground">Avg Response Rate</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{Math.round(chatbots.reduce((sum, bot) => sum + bot.averageResponseTime, 0) / chatbots.length || 0)}s</div>
+                    <div className="text-sm text-muted-foreground">Avg Response Time</div>
                   </div>
                 </div>
               </CardContent>
