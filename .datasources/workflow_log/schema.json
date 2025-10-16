@@ -1,0 +1,49 @@
+
+{
+  "name": "workflow_log",
+  "title": "工作流运行日志",
+  "schemas": [
+    {
+      "name": "workflow_id",
+      "title": "工作流ID",
+      "type": "String"
+    },
+    {
+      "name": "workflow_name",
+      "title": "工作流名称",
+      "type": "String"
+    },
+    {
+      "name": "executed_at",
+      "title": "执行时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "status",
+      "title": "执行状态",
+      "type": "String"
+    },
+    {
+      "name": "details",
+      "title": "日志详情",
+      "type": "Object"
+    },
+    {
+      "name": "triggered_by",
+      "title": "触发用户",
+      "type": "String"
+    },
+    {
+      "name": "execution_time",
+      "title": "执行耗时(ms)",
+      "type": "Number"
+    },
+    {
+      "name": "error_message",
+      "title": "错误信息",
+      "type": "String"
+    }
+  ]
+}
+  

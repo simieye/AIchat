@@ -1,0 +1,52 @@
+
+{
+  "name": "metric_snapshot",
+  "title": "指标快照",
+  "schemas": [
+    {
+      "name": "metric_name",
+      "title": "指标名称",
+      "type": "String"
+    },
+    {
+      "name": "value",
+      "title": "指标值",
+      "type": "Number"
+    },
+    {
+      "name": "unit",
+      "title": "单位",
+      "type": "String"
+    },
+    {
+      "name": "recorded_at",
+      "title": "记录时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "source_platform",
+      "title": "来源平台",
+      "type": "String"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "category",
+      "title": "指标分类",
+      "type": "String"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

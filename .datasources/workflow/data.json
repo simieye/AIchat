@@ -1,0 +1,84 @@
+
+[
+  {
+    "_id": "workflow_1",
+    "name": "Price Sensitive WhatsApp Users",
+    "trigger": {
+      "conditions": {
+        "tags": ["price-sensitive", "new-user"],
+        "platform": "WhatsApp"
+      },
+      "type": "user_tag_match"
+    },
+    "actions": [
+      {
+        "type": "send_coupon",
+        "message": "🎉 Special offer! Get 20% off your first purchase. Use code: FIRST20",
+        "coupon_code": "FIRST20",
+        "discount_percent": 20
+      }
+    ],
+    "enabled": true,
+    "status": "active",
+    "last_run": 1705276800000,
+    "run_count": 45,
+    "description": "Automatically send discount coupons to price-sensitive new users on WhatsApp",
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "workflow_2",
+    "name": "Enterprise Lead Follow-up",
+    "trigger": {
+      "conditions": {
+        "tags": ["enterprise", "hot-lead"],
+        "platform": "Facebook"
+      },
+      "type": "user_tag_match"
+    },
+    "actions": [
+      {
+        "type": "send_message",
+        "message": "Hi! I noticed you're interested in our enterprise solution. Let me schedule a demo call for you.",
+        "follow_up_delay": 300
+      }
+    ],
+    "enabled": true,
+    "status": "active",
+    "last_run": 1705273200000,
+    "run_count": 12,
+    "description": "Follow up with enterprise hot leads on Facebook with personalized demo offers",
+    "createdAt": 1705273200000,
+    "updatedAt": 1705273200000
+  },
+  {
+    "_id": "workflow_3",
+    "name": "Instagram Engagement Boost",
+    "trigger": {
+      "conditions": {
+        "tags": ["inactive", "instagram-user"],
+        "platform": "Instagram"
+      },
+      "type": "user_tag_match"
+    },
+    "actions": [
+      {
+        "type": "send_message",
+        "message": "We miss you! Here's an exclusive 15% discount to welcome you back.",
+        "discount_percent": 15
+      },
+      {
+        "type": "add_tag",
+        "tag": "re-engaged"
+      }
+    ],
+    "enabled": false,
+    "status": "paused",
+    "last_run": 1705186800000,
+    "run_count": 89,
+    "description": "Re-engage inactive Instagram users with special comeback offers",
+    "createdAt": 1705186800000,
+    "updatedAt": 1705186800000
+  }
+]
+  

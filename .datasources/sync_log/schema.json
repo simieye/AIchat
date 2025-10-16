@@ -1,0 +1,70 @@
+
+{
+  "name": "sync_log",
+  "title": "同步日志",
+  "schemas": [
+    {
+      "name": "integration_id",
+      "title": "集成ID",
+      "type": "String"
+    },
+    {
+      "name": "platform",
+      "title": "平台类型",
+      "type": "String"
+    },
+    {
+      "name": "started_at",
+      "title": "开始时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "finished_at",
+      "title": "结束时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "status",
+      "title": "同步状态",
+      "type": "String"
+    },
+    {
+      "name": "records_processed",
+      "title": "处理记录数",
+      "type": "Number"
+    },
+    {
+      "name": "records_success",
+      "title": "成功记录数",
+      "type": "Number"
+    },
+    {
+      "name": "records_failed",
+      "title": "失败记录数",
+      "type": "Number"
+    },
+    {
+      "name": "error_msg",
+      "title": "错误信息",
+      "type": "String"
+    },
+    {
+      "name": "sync_type",
+      "title": "同步类型",
+      "type": "String"
+    },
+    {
+      "name": "details",
+      "title": "同步详情",
+      "type": "Object"
+    },
+    {
+      "name": "duration_ms",
+      "title": "耗时(ms)",
+      "type": "Number"
+    }
+  ]
+}
+  

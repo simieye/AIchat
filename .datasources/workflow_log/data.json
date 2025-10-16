@@ -1,0 +1,214 @@
+
+[
+  {
+    "_id": "log_1",
+    "workflow_id": "workflow_1",
+    "workflow_name": "Price Sensitive WhatsApp Users",
+    "executed_at": 1705276800000,
+    "status": "success",
+    "details": {
+      "user_id": "user_12345",
+      "user_name": "Alice Johnson",
+      "platform": "WhatsApp",
+      "action_type": "send_coupon",
+      "coupon_code": "FIRST20",
+      "message_sent": "🎉 Special offer! Get 20% off your first purchase. Use code: FIRST20",
+      "delivery_status": "delivered",
+      "message_id": "msg_67890"
+    },
+    "triggered_by": "Alice Johnson",
+    "execution_time": 245,
+    "error_message": null,
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "log_2",
+    "workflow_id": "workflow_2",
+    "workflow_name": "Enterprise Lead Follow-up",
+    "executed_at": 1705273200000,
+    "status": "success",
+    "details": {
+      "user_id": "user_67890",
+      "user_name": "Bob Smith",
+      "platform": "Facebook",
+      "action_type": "send_message",
+      "message_sent": "Hi! I noticed you're interested in our enterprise solution. Let me schedule a demo call for you.",
+      "delivery_status": "delivered",
+      "message_id": "msg_54321"
+    },
+    "triggered_by": "Bob Smith",
+    "execution_time": 189,
+    "error_message": null,
+    "createdAt": 1705273200000,
+    "updatedAt": 1705273200000
+  },
+  {
+    "_id": "log_3",
+    "workflow_id": "workflow_1",
+    "workflow_name": "Price Sensitive WhatsApp Users",
+    "executed_at": 1705271400000,
+    "status": "failed",
+    "details": {
+      "user_id": "user_11111",
+      "user_name": "Charlie Brown",
+      "platform": "WhatsApp",
+      "action_type": "send_coupon",
+      "coupon_code": "FIRST20",
+      "attempted_message": "🎉 Special offer! Get 20% off your first purchase. Use code: FIRST20"
+    },
+    "triggered_by": "Charlie Brown",
+    "execution_time": 120,
+    "error_message": "User has opted out of promotional messages",
+    "createdAt": 1705271400000,
+    "updatedAt": 1705271400000
+  },
+  {
+    "_id": "log_4",
+    "workflow_id": "workflow_3",
+    "workflow_name": "Instagram Engagement Boost",
+    "executed_at": 1705269600000,
+    "status": "success",
+    "details": {
+      "user_id": "user_22222",
+      "user_name": "Diana Prince",
+      "platform": "Instagram",
+      "action_type": "send_message",
+      "message_sent": "We miss you! Here's an exclusive 15% discount to welcome you back.",
+      "delivery_status": "delivered",
+      "message_id": "msg_98765"
+    },
+    "triggered_by": "Diana Prince",
+    "execution_time": 312,
+    "error_message": null,
+    "createdAt": 1705269600000,
+    "updatedAt": 1705269600000
+  },
+  {
+    "_id": "log_5",
+    "workflow_id": "workflow_2",
+    "workflow_name": "Enterprise Lead Follow-up",
+    "executed_at": 1705267800000,
+    "status": "pending",
+    "details": {
+      "user_id": "user_33333",
+      "user_name": "Eve Wilson",
+      "platform": "Facebook",
+      "action_type": "send_message",
+      "message_sent": "Hi! I noticed you're interested in our enterprise solution. Let me schedule a demo call for you.",
+      "delivery_status": "sent",
+      "message_id": "msg_13579"
+    },
+    "triggered_by": "Eve Wilson",
+    "execution_time": 156,
+    "error_message": null,
+    "createdAt": 1705267800000,
+    "updatedAt": 1705267800000
+  },
+  {
+    "_id": "log_6",
+    "workflow_id": "workflow_1",
+    "workflow_name": "Price Sensitive WhatsApp Users",
+    "executed_at": 1705266000000,
+    "status": "success",
+    "details": {
+      "user_id": "user_44444",
+      "user_name": "Frank Miller",
+      "platform": "WhatsApp",
+      "action_type": "send_coupon",
+      "coupon_code": "FIRST20",
+      "message_sent": "🎉 Special offer! Get 20% off your first purchase. Use code: FIRST20",
+      "delivery_status": "delivered",
+      "message_id": "msg_24680"
+    },
+    "triggered_by": "Frank Miller",
+    "execution_time": 198,
+    "error_message": null,
+    "createdAt": 1705266000000,
+    "updatedAt": 1705266000000
+  },
+  {
+    "_id": "log_7",
+    "workflow_id": "workflow_3",
+    "workflow_name": "Instagram Engagement Boost",
+    "executed_at": 1705264200000,
+    "status": "failed",
+    "details": {
+      "user_id": "user_55555",
+      "user_name": "Grace Lee",
+      "platform": "Instagram",
+      "action_type": "send_message",
+      "attempted_message": "We miss you! Here's an exclusive 15% discount to welcome you back."
+    },
+    "triggered_by": "Grace Lee",
+    "execution_time": 95,
+    "error_message": "User account is private or blocked",
+    "createdAt": 1705264200000,
+    "updatedAt": 1705264200000
+  },
+  {
+    "_id": "log_8",
+    "workflow_id": "workflow_2",
+    "workflow_name": "Enterprise Lead Follow-up",
+    "executed_at": 1705262400000,
+    "status": "success",
+    "details": {
+      "user_id": "user_66666",
+      "user_name": "Henry Davis",
+      "platform": "Facebook",
+      "action_type": "send_message",
+      "message_sent": "Hi! I noticed you're interested in our enterprise solution. Let me schedule a demo call for you.",
+      "delivery_status": "delivered",
+      "message_id": "msg_97531"
+    },
+    "triggered_by": "Henry Davis",
+    "execution_time": 267,
+    "error_message": null,
+    "createdAt": 1705262400000,
+    "updatedAt": 1705262400000
+  },
+  {
+    "_id": "log_9",
+    "workflow_id": "workflow_1",
+    "workflow_name": "Price Sensitive WhatsApp Users",
+    "executed_at": 1705260600000,
+    "status": "success",
+    "details": {
+      "user_id": "user_77777",
+      "user_name": "Ivy Chen",
+      "platform": "WhatsApp",
+      "action_type": "send_coupon",
+      "coupon_code": "FIRST20",
+      "message_sent": "🎉 Special offer! Get 20% off your first purchase. Use code: FIRST20",
+      "delivery_status": "delivered",
+      "message_id": "msg_86420"
+    },
+    "triggered_by": "Ivy Chen",
+    "execution_time": 223,
+    "error_message": null,
+    "createdAt": 1705260600000,
+    "updatedAt": 1705260600000
+  },
+  {
+    "_id": "log_10",
+    "workflow_id": "workflow_3",
+    "workflow_name": "Instagram Engagement Boost",
+    "executed_at": 1705258800000,
+    "status": "success",
+    "details": {
+      "user_id": "user_88888",
+      "user_name": "Jack Wilson",
+      "platform": "Instagram",
+      "action_type": "send_message",
+      "message_sent": "We miss you! Here's an exclusive 15% discount to welcome you back.",
+      "delivery_status": "delivered",
+      "message_id": "msg_75319"
+    },
+    "triggered_by": "Jack Wilson",
+    "execution_time": 178,
+    "error_message": null,
+    "createdAt": 1705258800000,
+    "updatedAt": 1705258800000
+  }
+]
+  

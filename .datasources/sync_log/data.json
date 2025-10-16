@@ -1,0 +1,428 @@
+
+[
+  {
+    "_id": "sync_1",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705276800000,
+    "finished_at": 1705276803200,
+    "status": "success",
+    "records_processed": 150,
+    "records_success": 150,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "contacts",
+    "details": {
+      "operation": "full_sync",
+      "contacts_added": 25,
+      "contacts_updated": 125,
+      "messages_synced": 0
+    },
+    "duration_ms": 3200,
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "sync_2",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705273200000,
+    "finished_at": 1705273201800,
+    "status": "success",
+    "records_processed": 75,
+    "records_success": 75,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "profiles",
+    "details": {
+      "operation": "incremental_sync",
+      "profiles_updated": 75,
+      "new_conversations": 12
+    },
+    "duration_ms": 1800,
+    "createdAt": 1705273200000,
+    "updatedAt": 1705273200000
+  },
+  {
+    "_id": "sync_3",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705269600000,
+    "finished_at": 1705269604500,
+    "status": "partial",
+    "records_processed": 200,
+    "records_success": 195,
+    "records_failed": 5,
+    "error_msg": "Rate limit exceeded for 5 events",
+    "sync_type": "events",
+    "details": {
+      "operation": "events_sync",
+      "events_processed": 200,
+      "rate_limited_events": 5,
+      "retry_after": 3600
+    },
+    "duration_ms": 4500,
+    "createdAt": 1705269600000,
+    "updatedAt": 1705269600000
+  },
+  {
+    "_id": "sync_4",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705266000000,
+    "finished_at": 1705266010000,
+    "status": "failed",
+    "records_processed": 0,
+    "records_success": 0,
+    "records_failed": 0,
+    "error_msg": "Connection timeout after 10s",
+    "sync_type": "contacts",
+    "details": {
+      "operation": "full_sync",
+      "timeout_reason": "network_issue",
+      "retry_count": 3
+    },
+    "duration_ms": 10000,
+    "createdAt": 1705266000000,
+    "updatedAt": 1705266000000
+  },
+  {
+    "_id": "sync_5",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705262400000,
+    "finished_at": 1705262402100,
+    "status": "success",
+    "records_processed": 89,
+    "records_success": 89,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "messages",
+    "details": {
+      "operation": "messages_sync",
+      "new_messages": 89,
+      "conversations_updated": 23
+    },
+    "duration_ms": 2100,
+    "createdAt": 1705262400000,
+    "updatedAt": 1705262400000
+  },
+  {
+    "_id": "sync_6",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705258800000,
+    "finished_at": 1705258812000,
+    "status": "success",
+    "records_processed": 1250,
+    "records_success": 1250,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "analytics",
+    "details": {
+      "operation": "daily_analytics",
+      "sessions_processed": 1250,
+      "conversions_tracked": 45
+    },
+    "duration_ms": 12000,
+    "createdAt": 1705258800000,
+    "updatedAt": 1705258800000
+  },
+  {
+    "_id": "sync_7",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705255200000,
+    "finished_at": 1705255208000,
+    "status": "success",
+    "records_processed": 67,
+    "records_success": 67,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "messages",
+    "details": {
+      "operation": "incremental_sync",
+      "new_messages": 67,
+      "contacts_updated": 12
+    },
+    "duration_ms": 8000,
+    "createdAt": 1705255200000,
+    "updatedAt": 1705255200000
+  },
+  {
+    "_id": "sync_8",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705251600000,
+    "finished_at": 1705251605000,
+    "status": "failed",
+    "records_processed": 0,
+    "records_success": 0,
+    "records_failed": 0,
+    "error_msg": "Invalid access token",
+    "sync_type": "profiles",
+    "details": {
+      "operation": "profiles_sync",
+      "auth_error": "token_expired",
+      "requires_reauth": true
+    },
+    "duration_ms": 5000,
+    "createdAt": 1705251600000,
+    "updatedAt": 1705251600000
+  },
+  {
+    "_id": "sync_9",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705248000000,
+    "finished_at": 1705248015000,
+    "status": "success",
+    "records_processed": 890,
+    "records_success": 890,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "events",
+    "details": {
+      "operation": "events_sync",
+      "events_processed": 890,
+      "custom_dimensions_updated": 15
+    },
+    "duration_ms": 15000,
+    "createdAt": 1705248000000,
+    "updatedAt": 1705248000000
+  },
+  {
+    "_id": "sync_10",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705244400000,
+    "finished_at": 1705244404000,
+    "status": "success",
+    "records_processed": 234,
+    "records_success": 234,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "contacts",
+    "details": {
+      "operation": "bulk_contacts_sync",
+      "contacts_added": 45,
+      "contacts_updated": 189
+    },
+    "duration_ms": 4000,
+    "createdAt": 1705244400000,
+    "updatedAt": 1705244400000
+  },
+  {
+    "_id": "sync_11",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705240800000,
+    "finished_at": 1705240809000,
+    "status": "partial",
+    "records_processed": 156,
+    "records_success": 142,
+    "records_failed": 14,
+    "error_msg": "API rate limit hit, 14 records skipped",
+    "sync_type": "messages",
+    "details": {
+      "operation": "messages_sync",
+      "messages_processed": 156,
+      "rate_limited_messages": 14,
+      "retry_after": 3600
+    },
+    "duration_ms": 9000,
+    "createdAt": 1705240800000,
+    "updatedAt": 1705240800000
+  },
+  {
+    "_id": "sync_12",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705237200000,
+    "finished_at": 1705237220000,
+    "status": "success",
+    "records_processed": 567,
+    "records_success": 567,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "analytics",
+    "details": {
+      "operation": "realtime_analytics",
+      "realtime_users": 567,
+      "page_views": 2341
+    },
+    "duration_ms": 20000,
+    "createdAt": 1705237200000,
+    "updatedAt": 1705237200000
+  },
+  {
+    "_id": "sync_13",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705233600000,
+    "finished_at": 1705233612000,
+    "status": "failed",
+    "records_processed": 0,
+    "records_success": 0,
+    "records_failed": 0,
+    "error_msg": "Webhook endpoint unreachable",
+    "sync_type": "webhook",
+    "details": {
+      "operation": "webhook_sync",
+      "webhook_error": "connection_refused",
+      "endpoint_status": "down"
+    },
+    "duration_ms": 12000,
+    "createdAt": 1705233600000,
+    "updatedAt": 1705233600000
+  },
+  {
+    "_id": "sync_14",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705230000000,
+    "finished_at": 1705230006000,
+    "status": "success",
+    "records_processed": 78,
+    "records_success": 78,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "profiles",
+    "details": {
+      "operation": "profile_updates",
+      "profiles_updated": 78,
+      "new_subscribers": 12
+    },
+    "duration_ms": 6000,
+    "createdAt": 1705230000000,
+    "updatedAt": 1705230000000
+  },
+  {
+    "_id": "sync_15",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705226400000,
+    "finished_at": 1705226425000,
+    "status": "success",
+    "records_processed": 2100,
+    "records_success": 2100,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "events",
+    "details": {
+      "operation": "daily_events_sync",
+      "events_processed": 2100,
+      "goal_completions": 89
+    },
+    "duration_ms": 25000,
+    "createdAt": 1705226400000,
+    "updatedAt": 1705226400000
+  },
+  {
+    "_id": "sync_16",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705222800000,
+    "finished_at": 1705222803000,
+    "status": "success",
+    "records_processed": 45,
+    "records_success": 45,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "messages",
+    "details": {
+      "operation": "quick_sync",
+      "messages_synced": 45,
+      "delivery_status_updated": 45
+    },
+    "duration_ms": 3000,
+    "createdAt": 1705222800000,
+    "updatedAt": 1705222800000
+  },
+  {
+    "_id": "sync_17",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705219200000,
+    "finished_at": 1705219218000,
+    "status": "partial",
+    "records_processed": 234,
+    "records_success": 200,
+    "records_failed": 34,
+    "error_msg": "34 records failed validation",
+    "sync_type": "messages",
+    "details": {
+      "operation": "messages_sync",
+      "validation_errors": 34,
+      "invalid_format": 20,
+      "missing_fields": 14
+    },
+    "duration_ms": 18000,
+    "createdAt": 1705219200000,
+    "updatedAt": 1705219200000
+  },
+  {
+    "_id": "sync_18",
+    "integration_id": "integration_3",
+    "platform": "ga",
+    "started_at": 1705215600000,
+    "finished_at": 1705215620000,
+    "status": "success",
+    "records_processed": 345,
+    "records_success": 345,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "analytics",
+    "details": {
+      "operation": "hourly_analytics",
+      "sessions_processed": 345,
+      "bounce_rate": 0.35
+    },
+    "duration_ms": 20000,
+    "createdAt": 1705215600000,
+    "updatedAt": 1705215600000
+  },
+  {
+    "_id": "sync_19",
+    "integration_id": "integration_1",
+    "platform": "whatsapp",
+    "started_at": 1705212000000,
+    "finished_at": 1705212010000,
+    "status": "failed",
+    "records_processed": 0,
+    "records_success": 0,
+    "records_failed": 0,
+    "error_msg": "Invalid API credentials",
+    "sync_type": "contacts",
+    "details": {
+      "operation": "contacts_sync",
+      "auth_error": "invalid_credentials",
+      "requires_reauth": true
+    },
+    "duration_ms": 10000,
+    "createdAt": 1705212000000,
+    "updatedAt": 1705212000000
+  },
+  {
+    "_id": "sync_20",
+    "integration_id": "integration_2",
+    "platform": "facebook",
+    "started_at": 1705208400000,
+    "finished_at": 1705208405000,
+    "status": "success",
+    "records_processed": 123,
+    "records_success": 123,
+    "records_failed": 0,
+    "error_msg": null,
+    "sync_type": "profiles",
+    "details": {
+      "operation": "profile_sync",
+      "profiles_updated": 123,
+      "engagement_metrics": 89
+    },
+    "duration_ms": 5000,
+    "createdAt": 1705208400000,
+    "updatedAt": 1705208400000
+  }
+]
+  

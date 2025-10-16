@@ -1,0 +1,59 @@
+
+{
+  "name": "integration",
+  "title": "平台集成连接",
+  "schemas": [
+    {
+      "name": "platform",
+      "title": "平台类型",
+      "type": "String"
+    },
+    {
+      "name": "name",
+      "title": "连接名称",
+      "type": "String"
+    },
+    {
+      "name": "credentials",
+      "title": "连接凭证",
+      "type": "Object"
+    },
+    {
+      "name": "status",
+      "title": "连接状态",
+      "type": "String"
+    },
+    {
+      "name": "account",
+      "title": "账户信息",
+      "type": "String"
+    },
+    {
+      "name": "last_sync_at",
+      "title": "最后同步时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "sync_enabled",
+      "title": "同步启用",
+      "type": "Boolean"
+    },
+    {
+      "name": "webhook_url",
+      "title": "Webhook地址",
+      "type": "Url"
+    },
+    {
+      "name": "rate_limits",
+      "title": "速率限制",
+      "type": "Object"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

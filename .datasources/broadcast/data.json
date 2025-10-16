@@ -1,0 +1,38 @@
+
+[
+  {
+    "_id": "broadcast_1",
+    "title": "Summer Sale 2024",
+    "message": "🌞 Summer Sale Alert! Get 50% off on all SEO packages. Limited time offer!",
+    "segments": ["premium", "active-users"],
+    "platform": "WhatsApp",
+    "sent_at": 1705276800000,
+    "stats": {
+      "sent": 1250,
+      "delivered": 1187,
+      "opened": 890,
+      "clicked": 234
+    },
+    "status": "completed",
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "broadcast_2",
+    "title": "New Feature Launch",
+    "message": "🚀 Introducing AI-powered keyword research! Try our new feature today.",
+    "segments": ["beta-users", "power-users"],
+    "platform": "Facebook",
+    "sent_at": 1705190400000,
+    "stats": {
+      "sent": 850,
+      "delivered": 812,
+      "opened": 543,
+      "clicked": 187
+    },
+    "status": "completed",
+    "createdAt": 1705190400000,
+    "updatedAt": 1705190400000
+  }
+]
+  

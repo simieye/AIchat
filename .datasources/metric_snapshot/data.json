@@ -1,0 +1,173 @@
+
+[
+  {
+    "_id": "metric_1",
+    "metric_name": "active_conversations",
+    "value": 1234,
+    "unit": "count",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["real-time", "engagement", "daily"],
+    "category": "conversations",
+    "metadata": {
+      "platform_breakdown": {
+        "whatsapp": 567,
+        "facebook": 432,
+        "instagram": 235
+      }
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_2",
+    "metric_name": "open_rate",
+    "value": 78.5,
+    "unit": "percentage",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["engagement", "performance", "daily"],
+    "category": "rates",
+    "metadata": {
+      "previous_value": 76.2,
+      "change": "+2.3%"
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_3",
+    "metric_name": "click_rate",
+    "value": 45.2,
+    "unit": "percentage",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["engagement", "performance", "daily"],
+    "category": "rates",
+    "metadata": {
+      "previous_value": 43.4,
+      "change": "+1.8%"
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_4",
+    "metric_name": "conversion_rate",
+    "value": 12.3,
+    "unit": "percentage",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["conversion", "performance", "daily"],
+    "category": "rates",
+    "metadata": {
+      "funnel_stage": "final",
+      "total_conversions": 456
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_5",
+    "metric_name": "total_impressions",
+    "value": 10000,
+    "unit": "count",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["reach", "performance", "daily"],
+    "category": "impressions",
+    "metadata": {
+      "organic": 6500,
+      "paid": 3500
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_6",
+    "metric_name": "total_clicks",
+    "value": 4520,
+    "unit": "count",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["engagement", "performance", "daily"],
+    "category": "clicks",
+    "metadata": {
+      "unique_clicks": 3890,
+      "click_through_rate": 45.2
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_7",
+    "metric_name": "response_time_avg",
+    "value": 2.5,
+    "unit": "minutes",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["performance", "service", "daily"],
+    "category": "response_time",
+    "metadata": {
+      "platform_breakdown": {
+        "whatsapp": 1.8,
+        "facebook": 3.2,
+        "instagram": 2.9
+      }
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_8",
+    "metric_name": "customer_satisfaction",
+    "value": 4.6,
+    "unit": "score",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["satisfaction", "quality", "daily"],
+    "category": "satisfaction",
+    "metadata": {
+      "scale": "1-5",
+      "responses_count": 234
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_9",
+    "metric_name": "daily_active_users",
+    "value": 567,
+    "unit": "count",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["engagement", "users", "daily"],
+    "category": "users",
+    "metadata": {
+      "new_users": 89,
+      "returning_users": 478
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "metric_10",
+    "metric_name": "revenue_generated",
+    "value": 12500,
+    "unit": "USD",
+    "recorded_at": 1705276800000,
+    "source_platform": "all",
+    "tags": ["revenue", "performance", "daily"],
+    "category": "revenue",
+    "metadata": {
+      "platform_breakdown": {
+        "whatsapp": 7500,
+        "facebook": 3500,
+        "instagram": 1500
+      }
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  }
+]
+  

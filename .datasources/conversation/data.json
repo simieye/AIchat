@@ -1,0 +1,100 @@
+
+[
+  {
+    "_id": "conv_1",
+    "lead_id": "lead_1",
+    "platform": "WhatsApp",
+    "status": "active",
+    "messages": [
+      {
+        "id": "msg_1",
+        "role": "user",
+        "text": "Hi, I need help with SEO optimization",
+        "timestamp": 1705276800000
+      },
+      {
+        "id": "msg_2",
+        "role": "bot",
+        "text": "Hello! I'd be happy to help you with SEO. What specific aspect are you looking to improve?",
+        "timestamp": 1705276860000
+      },
+      {
+        "id": "msg_3",
+        "role": "user",
+        "text": "I want to rank higher for local searches",
+        "timestamp": 1705276920000
+      },
+      {
+        "id": "msg_4",
+        "role": "bot",
+        "text": "Great! Local SEO is crucial for businesses. Let me gather some information about your business first.",
+        "timestamp": 1705276980000
+      }
+    ],
+    "contact": {
+      "name": "John Doe",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+    },
+    "last_message": "Hi, I need help with SEO optimization",
+    "unread_count": 3,
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "conv_2",
+    "lead_id": "lead_2",
+    "platform": "Facebook",
+    "status": "pending",
+    "messages": [
+      {
+        "id": "msg_5",
+        "role": "user",
+        "text": "Can you send me the pricing details?",
+        "timestamp": 1705275000000
+      },
+      {
+        "id": "msg_6",
+        "role": "bot",
+        "text": "Of course! I'll send you our complete pricing guide right away.",
+        "timestamp": 1705275060000
+      }
+    ],
+    "contact": {
+      "name": "Sarah Smith",
+      "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+    },
+    "last_message": "Can you send me the pricing details?",
+    "unread_count": 1,
+    "createdAt": 1705275000000,
+    "updatedAt": 1705275000000
+  },
+  {
+    "_id": "conv_3",
+    "lead_id": "lead_3",
+    "platform": "Instagram",
+    "status": "closed",
+    "messages": [
+      {
+        "id": "msg_7",
+        "role": "user",
+        "text": "Thank you for the quick response!",
+        "timestamp": 1705269600000
+      },
+      {
+        "id": "msg_8",
+        "role": "bot",
+        "text": "You're welcome! Feel free to reach out if you need any assistance.",
+        "timestamp": 1705269660000
+      }
+    ],
+    "contact": {
+      "name": "Mike Johnson",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+    },
+    "last_message": "Thank you for the quick response!",
+    "unread_count": 0,
+    "createdAt": 1705269600000,
+    "updatedAt": 1705269600000
+  }
+]
+  

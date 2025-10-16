@@ -1,0 +1,52 @@
+
+{
+  "name": "workflow",
+  "title": "自动化工作流",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "工作流名称",
+      "type": "String"
+    },
+    {
+      "name": "trigger",
+      "title": "触发条件",
+      "type": "Object"
+    },
+    {
+      "name": "actions",
+      "title": "执行动作",
+      "type": "Array",
+      "items": {
+        "type": "Object"
+      }
+    },
+    {
+      "name": "enabled",
+      "title": "启用状态",
+      "type": "Boolean"
+    },
+    {
+      "name": "status",
+      "title": "运行状态",
+      "type": "String"
+    },
+    {
+      "name": "last_run",
+      "title": "最后运行时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "run_count",
+      "title": "运行次数",
+      "type": "Number"
+    },
+    {
+      "name": "description",
+      "title": "描述",
+      "type": "MultiLineString"
+    }
+  ]
+}
+  

@@ -1,0 +1,46 @@
+
+{
+  "name": "conversation",
+  "title": "对话记录",
+  "schemas": [
+    {
+      "name": "lead_id",
+      "title": "潜客ID",
+      "type": "String"
+    },
+    {
+      "name": "platform",
+      "title": "对话平台",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "对话状态",
+      "type": "String"
+    },
+    {
+      "name": "messages",
+      "title": "消息列表",
+      "type": "Array",
+      "items": {
+        "type": "Object"
+      }
+    },
+    {
+      "name": "contact",
+      "title": "联系人信息",
+      "type": "Object"
+    },
+    {
+      "name": "last_message",
+      "title": "最后消息",
+      "type": "String"
+    },
+    {
+      "name": "unread_count",
+      "title": "未读消息数",
+      "type": "Number"
+    }
+  ]
+}
+  

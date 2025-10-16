@@ -1,0 +1,47 @@
+
+{
+  "name": "broadcast",
+  "title": "广播任务",
+  "schemas": [
+    {
+      "name": "title",
+      "title": "任务标题",
+      "type": "String"
+    },
+    {
+      "name": "message",
+      "title": "广播消息内容",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "segments",
+      "title": "目标标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "platform",
+      "title": "发送平台",
+      "type": "String"
+    },
+    {
+      "name": "sent_at",
+      "title": "发送时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "stats",
+      "title": "统计数据",
+      "type": "Object"
+    },
+    {
+      "name": "status",
+      "title": "任务状态",
+      "type": "String"
+    }
+  ]
+}
+  

@@ -1,0 +1,85 @@
+
+[
+  {
+    "_id": "integration_1",
+    "platform": "whatsapp",
+    "name": "WhatsApp Business",
+    "credentials": {
+      "api_key": "wa_api_key_encrypted",
+      "access_token": "wa_token_encrypted",
+      "phone_number_id": "1234567890",
+      "business_account_id": "business_123"
+    },
+    "status": "connected",
+    "account": "+1-234-567-8900",
+    "last_sync_at": 1705276800000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/whatsapp",
+    "rate_limits": {
+      "messages_per_second": 80,
+      "messages_per_day": 1000
+    },
+    "metadata": {
+      "business_name": "AI SEO+ Business",
+      "verified": true,
+      "tier": "business"
+    },
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "integration_2",
+    "platform": "facebook",
+    "name": "Facebook Messenger",
+    "credentials": {
+      "app_id": "fb_app_123",
+      "app_secret": "fb_secret_encrypted",
+      "page_access_token": "fb_page_token_encrypted",
+      "verify_token": "fb_verify_123"
+    },
+    "status": "connected",
+    "account": "business.page@facebook.com",
+    "last_sync_at": 1705273200000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/facebook",
+    "rate_limits": {
+      "messages_per_second": 200,
+      "messages_per_day": 10000
+    },
+    "metadata": {
+      "page_name": "AI SEO+ Business Page",
+      "page_id": "123456789012345",
+      "verified": true
+    },
+    "createdAt": 1705273200000,
+    "updatedAt": 1705273200000
+  },
+  {
+    "_id": "integration_3",
+    "platform": "ga",
+    "name": "Google Analytics",
+    "credentials": {
+      "client_id": "ga_client_123",
+      "client_secret": "ga_secret_encrypted",
+      "refresh_token": "ga_refresh_encrypted",
+      "property_id": "GA4-123456789"
+    },
+    "status": "connected",
+    "account": "GA-123456789",
+    "last_sync_at": 1705269600000,
+    "sync_enabled": true,
+    "webhook_url": "https://api.aiseo.com/webhooks/ga",
+    "rate_limits": {
+      "requests_per_day": 10000,
+      "requests_per_100_seconds": 100
+    },
+    "metadata": {
+      "property_name": "AI SEO+ Website",
+      "account_name": "AI SEO+ Analytics",
+      "timezone": "America/New_York"
+    },
+    "createdAt": 1705269600000,
+    "updatedAt": 1705269600000
+  }
+]
+  
