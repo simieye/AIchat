@@ -1,7 +1,7 @@
 
 {
   "name": "integration",
-  "title": "扩展平台集成连接",
+  "title": "平台集成连接",
   "schemas": [
     {
       "name": "platform",
@@ -14,49 +14,9 @@
       "type": "String"
     },
     {
-      "name": "display_name",
-      "title": "显示名称",
-      "type": "String"
-    },
-    {
-      "name": "client_id",
-      "title": "客户端ID",
-      "type": "String"
-    },
-    {
-      "name": "client_secret",
-      "title": "客户端密钥",
-      "type": "String"
-    },
-    {
-      "name": "access_token",
-      "title": "访问令牌",
-      "type": "String"
-    },
-    {
-      "name": "refresh_token",
-      "title": "刷新令牌",
-      "type": "String"
-    },
-    {
-      "name": "scope",
-      "title": "权限范围",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
-    },
-    {
-      "name": "expires_at",
-      "title": "令牌过期时间",
-      "type": "DateTime",
-      "format": "timestamp-ms"
-    },
-    {
-      "name": "connected_at",
-      "title": "连接时间",
-      "type": "DateTime",
-      "format": "timestamp-ms"
+      "name": "credentials",
+      "title": "连接凭证",
+      "type": "Object"
     },
     {
       "name": "status",
@@ -64,53 +24,8 @@
       "type": "String"
     },
     {
-      "name": "account_id",
-      "title": "账户ID",
-      "type": "String"
-    },
-    {
-      "name": "account_name",
-      "title": "账户名称",
-      "type": "String"
-    },
-    {
-      "name": "account_email",
-      "title": "账户邮箱",
-      "type": "Email"
-    },
-    {
-      "name": "account_avatar",
-      "title": "账户头像",
-      "type": "Image"
-    },
-    {
-      "name": "webhook_url",
-      "title": "Webhook地址",
-      "type": "Url"
-    },
-    {
-      "name": "webhook_secret",
-      "title": "Webhook密钥",
-      "type": "String"
-    },
-    {
-      "name": "api_version",
-      "title": "API版本",
-      "type": "String"
-    },
-    {
-      "name": "rate_limits",
-      "title": "速率限制",
-      "type": "Object"
-    },
-    {
-      "name": "sync_enabled",
-      "title": "同步启用",
-      "type": "Boolean"
-    },
-    {
-      "name": "sync_frequency",
-      "title": "同步频率",
+      "name": "account",
+      "title": "账户信息",
       "type": "String"
     },
     {
@@ -120,32 +35,24 @@
       "format": "timestamp-ms"
     },
     {
-      "name": "last_sync_status",
-      "title": "最后同步状态",
-      "type": "String"
+      "name": "sync_enabled",
+      "title": "同步启用",
+      "type": "Boolean"
     },
     {
-      "name": "error_message",
-      "title": "错误信息",
-      "type": "String"
+      "name": "webhook_url",
+      "title": "Webhook地址",
+      "type": "Url"
+    },
+    {
+      "name": "rate_limits",
+      "title": "速率限制",
+      "type": "Object"
     },
     {
       "name": "metadata",
-      "title": "扩展元数据",
+      "title": "元数据",
       "type": "Object"
-    },
-    {
-      "name": "config",
-      "title": "平台配置",
-      "type": "Object"
-    },
-    {
-      "name": "tags",
-      "title": "标签",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
     }
   ]
 }
