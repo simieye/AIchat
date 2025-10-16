@@ -1,0 +1,93 @@
+
+{
+  "name": "platform_integration",
+  "title": "平台集成认证",
+  "schemas": [
+    {
+      "name": "platform",
+      "title": "平台名称",
+      "type": "String"
+    },
+    {
+      "name": "platform_type",
+      "title": "平台类型",
+      "type": "String"
+    },
+    {
+      "name": "region",
+      "title": "地区",
+      "type": "String"
+    },
+    {
+      "name": "client_id",
+      "title": "客户端ID",
+      "type": "String"
+    },
+    {
+      "name": "client_secret",
+      "title": "客户端密钥",
+      "type": "String"
+    },
+    {
+      "name": "access_token",
+      "title": "访问令牌",
+      "type": "String"
+    },
+    {
+      "name": "refresh_token",
+      "title": "刷新令牌",
+      "type": "String"
+    },
+    {
+      "name": "connected",
+      "title": "连接状态",
+      "type": "Boolean"
+    },
+    {
+      "name": "expires_at",
+      "title": "令牌过期时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "scopes",
+      "title": "权限范围",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "account_info",
+      "title": "账户信息",
+      "type": "Object"
+    },
+    {
+      "name": "webhook_url",
+      "title": "Webhook地址",
+      "type": "Url"
+    },
+    {
+      "name": "rate_limits",
+      "title": "速率限制",
+      "type": "Object"
+    },
+    {
+      "name": "config",
+      "title": "配置信息",
+      "type": "Object"
+    },
+    {
+      "name": "error_message",
+      "title": "错误信息",
+      "type": "String"
+    },
+    {
+      "name": "last_sync_at",
+      "title": "最后同步时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    }
+  ]
+}
+  

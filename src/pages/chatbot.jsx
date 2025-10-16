@@ -1,19 +1,26 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, ScrollArea, Avatar, AvatarFallback, AvatarImage, useToast } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, useToast, Tabs, TabsContent, TabsList, TabsTrigger, Badge, Switch } from '@/components/ui';
 // @ts-ignore;
-import { MessageCircle, Send } from 'lucide-react';
+import { Plus, Edit, Trash2, Play, Pause, Settings, Bot, MessageSquare, Users, Clock } from 'lucide-react';
 
 import { Layout } from '@/components/Layout';
+import { ChatbotCard } from '@/components/ChatbotCard';
+import { ChatbotCreator } from '@/components/ChatbotCreator';
+// @ts-ignore;
+import { useTranslation } from '@/lib/i18n';
 export default function Chatbot(props) {
   const [isDark, setIsDark] = useState(true);
-  const [selectedPlatform, setSelectedPlatform] = useState('all');
-  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [chatbots, setChatbots] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showCreator, setShowCreator] = useState(false);
+  const [selectedChatbot, setSelectedChatbot] = useState(null);
+  const [activeTab, setActiveTab] = useState('chatbots');
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -24,6 +31,41 @@ export default function Chatbot(props) {
     });
   };
   const toggleTheme = () => setIsDark(!isDark);
+  const fetchChatbots = async () => {
+    try {
+      const result = await props.$w.cloud.callDataSource({
+        dataSourceName: 'chatbot',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          orderBy: [{
+            createdAt: 'desc'
+          }],
+          pageSize: 50,
+          getCount: true
+        }
+      });
+      if (result.records) {
+        setChatbots(result.records.map(record => ({
+          id: record._id,
+          name: record.name,
+          description: record.description,
+          status: record.status,
+          platform: record.platform || 'web',
+          createdAt: record.createdAt,
+          updatedAt: record.updatedAt,
+          config: record.config || {},
+          triggers: record.triggers || [],
+          responses: record.responses || []
+        })));
+      }
+    } catch (error) {
+      toast({
+        title: t('errorLoadingData'),
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
   const fetchConversations = async () => {
     try {
       const result = await props.$w.cloud.callDataSource({
@@ -33,226 +75,274 @@ export default function Chatbot(props) {
           orderBy: [{
             last_interaction_at: 'desc'
           }],
+          pageSize: 20,
           getCount: true
         }
       });
       if (result.records) {
-        setConversations(result.records);
-        if (result.records.length > 0 && !selectedConversation) {
-          setSelectedConversation(result.records[0]);
-        }
+        setConversations(result.records.map(record => ({
+          id: record._id,
+          leadId: record.lead_id,
+          platform: record.platform,
+          status: record.status,
+          messages: record.messages || [],
+          contact: record.contact || {},
+          lastMessage: record.last_message || '',
+          lastInteractionAt: record.last_interaction_at,
+          unreadCount: record.unread_count || 0,
+          assignedTo: record.assigned_to,
+          priority: record.priority || 'medium',
+          tags: record.tags || [],
+          metadata: record.metadata || {}
+        })));
       }
     } catch (error) {
       toast({
-        title: "Error loading conversations",
+        title: t('errorLoadingData'),
         description: error.message,
         variant: "destructive"
       });
     }
   };
-  const fetchMessages = async conversationId => {
+  const handleCreateChatbot = async chatbotData => {
     try {
-      const result = await props.$w.cloud.callDataSource({
-        dataSourceName: 'conversation',
-        methodName: 'wedaGetItemV2',
+      await props.$w.cloud.callDataSource({
+        dataSourceName: 'chatbot',
+        methodName: 'wedaCreateV2',
         params: {
-          filter: {
-            where: {
-              _id: {
-                $eq: conversationId
-              }
-            }
-          },
-          select: {
-            messages: true
+          data: {
+            name: chatbotData.name,
+            description: chatbotData.description,
+            status: 'active',
+            platform: chatbotData.platform,
+            config: chatbotData.config || {},
+            triggers: chatbotData.triggers || [],
+            responses: chatbotData.responses || [],
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           }
         }
       });
-      if (result) {
-        setMessages(result.messages || []);
-      }
+      toast({
+        title: t('chatbotCreated'),
+        description: `${chatbotData.name} has been created successfully`,
+        variant: "success"
+      });
+      setShowCreator(false);
+      fetchChatbots();
     } catch (error) {
       toast({
-        title: "Error loading messages",
+        title: t('error'),
         description: error.message,
         variant: "destructive"
       });
     }
   };
-  useEffect(() => {
-    fetchConversations();
-    setLoading(false);
-  }, []);
-  useEffect(() => {
-    if (selectedConversation) {
-      fetchMessages(selectedConversation._id);
-    }
-  }, [selectedConversation]);
-  const handleSendMessage = async () => {
-    if (!newMessage.trim() || !selectedConversation) return;
+  const handleUpdateChatbot = async (id, updates) => {
     try {
-      const newMsg = {
-        role: 'bot',
-        text: newMessage,
-        timestamp: new Date().toISOString()
-      };
-      const updatedMessages = [...messages, newMsg];
       await props.$w.cloud.callDataSource({
-        dataSourceName: 'conversation',
+        dataSourceName: 'chatbot',
         methodName: 'wedaUpdateV2',
         params: {
           data: {
-            messages: updatedMessages,
-            last_message: newMessage,
-            last_interaction_at: new Date().toISOString()
+            ...updates,
+            updatedAt: new Date().toISOString()
           },
           filter: {
             where: {
               _id: {
-                $eq: selectedConversation._id
+                $eq: id
               }
             }
           }
         }
       });
-      setMessages(updatedMessages);
-      setNewMessage('');
-      fetchConversations(); // 刷新对话列表
+      toast({
+        title: t('chatbotUpdated'),
+        variant: "success"
+      });
+      fetchChatbots();
     } catch (error) {
       toast({
-        title: "Error sending message",
+        title: t('error'),
         description: error.message,
         variant: "destructive"
       });
     }
   };
-  const filteredConversations = conversations.filter(conv => selectedPlatform === 'all' || conv.platform.toLowerCase() === selectedPlatform);
-  const getPlatformColor = platform => {
-    switch (platform?.toLowerCase()) {
-      case 'whatsapp':
-        return 'bg-green-500';
-      case 'facebook':
-        return 'bg-blue-500';
-      case 'instagram':
-        return 'bg-pink-500';
-      default:
-        return 'bg-gray-500';
+  const handleDeleteChatbot = async id => {
+    try {
+      await props.$w.cloud.callDataSource({
+        dataSourceName: 'chatbot',
+        methodName: 'wedaDeleteV2',
+        params: {
+          filter: {
+            where: {
+              _id: {
+                $eq: id
+              }
+            }
+          }
+        }
+      });
+      toast({
+        title: t('chatbotDeleted'),
+        variant: "success"
+      });
+      fetchChatbots();
+    } catch (error) {
+      toast({
+        title: t('error'),
+        description: error.message,
+        variant: "destructive"
+      });
     }
   };
+  const handleToggleStatus = async (id, currentStatus) => {
+    try {
+      await props.$w.cloud.callDataSource({
+        dataSourceName: 'chatbot',
+        methodName: 'wedaUpdateV2',
+        params: {
+          data: {
+            status: currentStatus === 'active' ? 'inactive' : 'active',
+            updatedAt: new Date().toISOString()
+          },
+          filter: {
+            where: {
+              _id: {
+                $eq: id
+              }
+            }
+          }
+        }
+      });
+      toast({
+        title: t('statusUpdated'),
+        variant: "success"
+      });
+      fetchChatbots();
+    } catch (error) {
+      toast({
+        title: t('error'),
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+  useEffect(() => {
+    Promise.all([fetchChatbots(), fetchConversations()]).finally(() => {
+      setLoading(false);
+    });
+  }, []);
   if (loading) {
     return <Layout activePage="chatbot" onNavigate={handleNavigate} isDark={isDark} onToggleTheme={toggleTheme}>
-      <div className="flex h-full">
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-muted-foreground">Loading conversations...</div>
+      <div className="p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-muted-foreground">{t('loading')}</div>
         </div>
       </div>
     </Layout>;
   }
   return <Layout activePage="chatbot" onNavigate={handleNavigate} isDark={isDark} onToggleTheme={toggleTheme}>
-      <div className="flex h-full">
-        {/* Conversations List */}
-        <div className="w-96 border-r border-border">
-          <div className="p-4 border-b border-border">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Conversations</h2>
-              <Badge variant="secondary">{filteredConversations.length} active</Badge>
-            </div>
-            <div className="flex gap-2">
-              <Select value={selectedPlatform} onValueChange={setSelectedPlatform}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Filter by platform" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Platforms</SelectItem>
-                  <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                  <SelectItem value="facebook">Facebook</SelectItem>
-                  <SelectItem value="instagram">Instagram</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-3xl font-bold text-foreground flex items-center gap-2">
+              <Bot className="w-8 h-8" />
+              {t('chatbotManagement')}
+            </h2>
+            <p className="text-muted-foreground">Manage your AI chatbots and conversations</p>
           </div>
-
-          <ScrollArea className="h-[calc(100%-120px)]">
-            {filteredConversations.map(conv => <div key={conv._id} className={`p-4 border-b border-border cursor-pointer hover:bg-accent/50 ${selectedConversation?._id === conv._id ? 'bg-accent' : ''}`} onClick={() => setSelectedConversation(conv)}>
-                <div className="flex items-start gap-3">
-                  <Avatar>
-                    <AvatarImage src={conv.contact?.avatar} />
-                    <AvatarFallback>{conv.contact?.name?.[0] || '?'}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium truncate">{conv.contact?.name || 'Unknown'}</p>
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(conv.last_interaction_at).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground truncate">{conv.last_message || 'No messages'}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Badge className={`${getPlatformColor(conv.platform)} text-white text-xs`}>
-                        {conv.platform}
-                      </Badge>
-                      {conv.unread_count > 0 && <Badge variant="destructive" className="text-xs">
-                          {conv.unread_count}
-                        </Badge>}
-                    </div>
-                  </div>
-                </div>
-              </div>)}
-          </ScrollArea>
+          <Button onClick={() => setShowCreator(true)}>
+            <Plus className="w-4 h-4 mr-2" />
+            {t('createChatbot')}
+          </Button>
         </div>
 
-        {/* Chat Window */}
-        <div className="flex-1 flex flex-col">
-          {selectedConversation ? <>
-              <div className="p-4 border-b border-border">
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage src={selectedConversation.contact?.avatar} />
-                    <AvatarFallback>{selectedConversation.contact?.name?.[0] || '?'}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-semibold">{selectedConversation.contact?.name || 'Unknown'}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {selectedConversation.platform} • {selectedConversation.status}
-                    </p>
-                  </div>
-                </div>
-              </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="chatbots">Chatbots</TabsTrigger>
+            <TabsTrigger value="conversations">Conversations</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          </TabsList>
 
-              <ScrollArea className="flex-1 p-4">
+          <TabsContent value="chatbots">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {chatbots.map(chatbot => <ChatbotCard key={chatbot.id} chatbot={chatbot} onUpdate={handleUpdateChatbot} onDelete={handleDeleteChatbot} onToggleStatus={handleToggleStatus} />)}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="conversations">
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Conversations</CardTitle>
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-4">
-                  {messages.map((message, idx) => <div key={idx} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                        <p className="text-sm">{message.text}</p>
-                        <p className="text-xs opacity-70 mt-1">
-                          {new Date(message.timestamp).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                        </p>
+                  {conversations.length === 0 ? <div className="text-center text-muted-foreground py-8">
+                      No conversations yet
+                    </div> : conversations.map(conv => <div key={conv.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <MessageSquare className="h-4 w-4" />
+                          <span className="font-medium">{conv.contact.name || 'Anonymous'}</span>
+                          <Badge variant={conv.status === 'active' ? 'default' : 'secondary'}>
+                            {conv.status}
+                          </Badge>
+                          {conv.unreadCount > 0 && <Badge variant="destructive">
+                              {conv.unreadCount}
+                            </Badge>}
+                        </div>
+                        <span className="text-sm text-muted-foreground">
+                          {new Date(conv.lastInteractionAt).toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Platform: {conv.platform} | Priority: {conv.priority}
+                      </p>
+                      <p className="text-sm">
+                        {conv.lastMessage}
+                      </p>
+                      <div className="flex gap-2 mt-2">
+                        {conv.tags.map(tag => <Badge key={tag} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>)}
                       </div>
                     </div>)}
                 </div>
-              </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              <div className="p-4 border-t border-border">
-                <div className="flex gap-2">
-                  <Input placeholder="Type a message..." value={newMessage} onChange={e => setNewMessage(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSendMessage()} />
-                  <Button onClick={handleSendMessage} size="icon">
-                    <Send className="w-4 h-4" />
-                  </Button>
+          <TabsContent value="analytics">
+            <Card>
+              <CardHeader>
+                <CardTitle>Chatbot Analytics</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{conversations.length}</div>
+                    <div className="text-sm text-muted-foreground">Total Conversations</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">
+                      {conversations.filter(c => c.unreadCount > 0).length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Unread Messages</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{chatbots.filter(c => c.status === 'active').length}</div>
+                    <div className="text-sm text-muted-foreground">Active Chatbots</div>
+                  </div>
                 </div>
-              </div>
-            </> : <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <MessageCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">Select a conversation to start chatting</p>
-              </div>
-            </div>}
-        </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+        {showCreator && <ChatbotCreator onCreate={handleCreateChatbot} onCancel={() => setShowCreator(false)} />}
       </div>
     </Layout>;
 }

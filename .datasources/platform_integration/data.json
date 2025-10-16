@@ -1,0 +1,191 @@
+
+[
+  {
+    "_id": "tiktok_integration",
+    "platform": "tiktok",
+    "platform_type": "video",
+    "region": "global",
+    "client_id": "tiktok_client_123456789",
+    "client_secret": "tiktok_secret_encrypted_abcdef123456",
+    "access_token": "tiktok_access_token_encrypted_xyz789abc123",
+    "refresh_token": "tiktok_refresh_token_encrypted_def456ghi789",
+    "connected": true,
+    "expires_at": 1707955200000,
+    "scopes": ["user.info.basic", "video.list", "video.upload", "live"],
+    "account_info": {
+      "open_id": "tiktok_user_123456789",
+      "username": "aiseo.tiktok",
+      "display_name": "AI SEO+ TikTok",
+      "avatar_url": "https://example.com/avatar.jpg",
+      "followers_count": 200000,
+      "verified": true
+    },
+    "webhook_url": "https://api.aiseo.com/webhooks/tiktok",
+    "rate_limits": {
+      "requests_per_day": 1000,
+      "videos_per_day": 50,
+      "requests_per_hour": 100
+    },
+    "config": {
+      "auto_sync": true,
+      "default_hashtags": ["#AISEO", "#TikTokMarketing", "#Viral"],
+      "auto_reply": false,
+      "analytics_enabled": true
+    },
+    "error_message": null,
+    "last_sync_at": 1705276800000,
+    "createdAt": 1705276800000,
+    "updatedAt": 1705276800000
+  },
+  {
+    "_id": "instagram_integration",
+    "platform": "instagram",
+    "platform_type": "social",
+    "region": "global",
+    "client_id": "instagram_app_987654321",
+    "client_secret": "instagram_secret_encrypted_zyx987cba654",
+    "access_token": "instagram_access_token_encrypted_abc123xyz789",
+    "refresh_token": "instagram_refresh_token_encrypted_ghi789def456",
+    "connected": true,
+    "expires_at": 1707955200000,
+    "scopes": ["instagram_basic", "instagram_content_publish", "user_profile"],
+    "account_info": {
+      "user_id": "instagram_user_987654321",
+      "username": "aiseo.ai",
+      "display_name": "AI SEO+",
+      "profile_picture_url": "https://example.com/profile.jpg",
+      "followers_count": 85000,
+      "verified": true,
+      "media_count": 234
+    },
+    "webhook_url": "https://api.aiseo.com/webhooks/instagram",
+    "rate_limits": {
+      "requests_per_hour": 200,
+      "posts_per_day": 25,
+      "stories_per_day": 100
+    },
+    "config": {
+      "auto_post": false,
+      "default_hashtags": ["#AISEO", "#InstagramMarketing", "#SocialMedia"],
+      "auto_reply": true,
+      "analytics_enabled": true
+    },
+    "error_message": null,
+    "last_sync_at": 1705273200000,
+    "createdAt": 1705273200000,
+    "updatedAt": 1705273200000
+  },
+  {
+    "_id": "weibo_integration",
+    "platform": "weibo",
+    "platform_type": "social",
+    "region": "china",
+    "client_id": "weibo_app_key_123456789",
+    "client_secret": "weibo_app_secret_encrypted_abcdef123456",
+    "access_token": "weibo_access_token_encrypted_xyz789abc123",
+    "refresh_token": "weibo_refresh_token_encrypted_def456ghi789",
+    "connected": true,
+    "expires_at": 1707955200000,
+    "scopes": ["all"],
+    "account_info": {
+      "uid": "1234567890",
+      "screen_name": "AI SEO+ 官方微博",
+      "name": "AI SEO+ 官方微博",
+      "avatar_large": "https://example.com/avatar.jpg",
+      "followers_count": 50000,
+      "verified": true,
+      "location": "北京"
+    },
+    "webhook_url": "https://api.aiseo.com/webhooks/weibo",
+    "rate_limits": {
+      "requests_per_hour": 150,
+      "posts_per_day": 100,
+      "mentions_per_hour": 50
+    },
+    "config": {
+      "auto_post": true,
+      "default_hashtags": ["#AISEO", "#微博营销", "#社交媒体"],
+      "auto_reply": false,
+      "analytics_enabled": true
+    },
+    "error_message": null,
+    "last_sync_at": 1705269600000,
+    "createdAt": 1705269600000,
+    "updatedAt": 1705269600000
+  },
+  {
+    "_id": "bilibili_integration",
+    "platform": "bilibili",
+    "platform_type": "video",
+    "region": "china",
+    "client_id": "bilibili_app_key_987654321",
+    "client_secret": "bilibili_app_secret_encrypted_zyx987cba654",
+    "access_token": "bilibili_access_token_encrypted_abc123xyz789",
+    "refresh_token": "bilibili_refresh_token_encrypted_ghi789def456",
+    "connected": true,
+    "expires_at": 1707955200000,
+    "scopes": ["user_info", "video_upload", "danmaku"],
+    "account_info": {
+      "mid": 12345678,
+      "name": "AI SEO+ 官方账号",
+      "face": "https://example.com/face.jpg",
+      "followers": 250000,
+      "level": 6,
+      "verified": true
+    },
+    "webhook_url": "https://api.aiseo.com/webhooks/bilibili",
+    "rate_limits": {
+      "requests_per_day": 10000,
+      "videos_per_day": 10,
+      "danmaku_per_hour": 100
+    },
+    "config": {
+      "auto_upload": false,
+      "default_tags": ["AI", "营销", "教程"],
+      "auto_reply": true,
+      "analytics_enabled": true
+    },
+    "error_message": null,
+    "last_sync_at": 1705266000000,
+    "createdAt": 1705266000000,
+    "updatedAt": 1705266000000
+  },
+  {
+    "_id": "zhihu_integration",
+    "platform": "zhihu",
+    "platform_type": "social",
+    "region": "china",
+    "client_id": "zhihu_client_id_123456789",
+    "client_secret": "zhihu_client_secret_encrypted_abcdef123456",
+    "access_token": "zhihu_access_token_encrypted_xyz789abc123",
+    "refresh_token": "zhihu_refresh_token_encrypted_def456ghi789",
+    "connected": true,
+    "expires_at": 1707955200000,
+    "scopes": ["read", "write", "user_info"],
+    "account_info": {
+      "uid": "zhihu_user_123456789",
+      "name": "AI SEO+ 官方账号",
+      "avatar_url": "https://example.com/avatar.jpg",
+      "headline": "AI营销专家",
+      "followers_count": 15000,
+      "verified": true
+    },
+    "webhook_url": "https://api.aiseo.com/webhooks/zhihu",
+    "rate_limits": {
+      "requests_per_day": 2000,
+      "answers_per_day": 20,
+      "articles_per_day": 10
+    },
+    "config": {
+      "auto_post": false,
+      "default_topics": ["人工智能", "数字营销", "SEO优化"],
+      "auto_reply": true,
+      "analytics_enabled": true
+    },
+    "error_message": null,
+    "last_sync_at": 1705262400000,
+    "createdAt": 1705262400000,
+    "updatedAt": 1705262400000
+  }
+]
+  

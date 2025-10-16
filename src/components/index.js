@@ -18,3 +18,5 @@ export * from './MetricCard.jsx';
 export * from './Chart.jsx';
 export * from './RecentActivity.jsx';
 export * from './LanguageSelector.jsx';
+export * from './ChatbotCard.jsx';
+export * from './ChatbotCreator.jsx';

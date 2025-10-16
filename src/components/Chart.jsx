@@ -4,28 +4,22 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 
 // @ts-ignore;
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 export function Chart({
   data
 }) {
-  // 按指标分组数据
+  // 按指标类型分组数据
   const groupedData = data.reduce((acc, item) => {
-    if (!acc[item.name]) {
-      acc[item.name] = [];
+    const date = item.name;
+    if (!acc[date]) {
+      acc[date] = {
+        date: date
+      };
     }
-    acc[item.name].push(item);
+    acc[date][item.metric] = item.value;
     return acc;
   }, {});
-  // 转换为图表需要的格式
-  const chartData = Object.entries(groupedData).map(([date, items]) => {
-    const entry = {
-      date
-    };
-    items.forEach(item => {
-      entry[item.metric] = item.value;
-    });
-    return entry;
-  });
+  const chartData = Object.values(groupedData);
   return <Card>
       <CardHeader>
         <CardTitle>Performance Overview</CardTitle>
@@ -38,10 +32,11 @@ export function Chart({
               <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="total_leads" stroke="#8884d8" name="Leads" />
-              <Line type="monotone" dataKey="total_messages" stroke="#82ca9d" name="Messages" />
-              <Line type="monotone" dataKey="total_views" stroke="#ffc658" name="Views" />
-              <Line type="monotone" dataKey="total_revenue" stroke="#ff7300" name="Revenue" />
+              <Legend />
+              <Line type="monotone" dataKey="total_leads" stroke="#8884d8" name="Leads" strokeWidth={2} />
+              <Line type="monotone" dataKey="total_messages" stroke="#82ca9d" name="Messages" strokeWidth={2} />
+              <Line type="monotone" dataKey="total_views" stroke="#ffc658" name="Views" strokeWidth={2} />
+              <Line type="monotone" dataKey="total_revenue" stroke="#ff7300" name="Revenue" strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>
